@@ -1,0 +1,705 @@
+---
+layout: none
+---
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<style>
+  :root {
+    /* Dark theme (default) */
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1f1f1f;
+    --bg-card: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #aaaaaa;
+    --accent: #ff0000;
+    --border: #3f3f3f;
+    --hover: #383838;
+  }
+
+  [data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --bg-card: #ffffff;
+    --text-primary: #111111;
+    --text-secondary: #555555;
+    --accent: #d30000;
+    --border: #e0e0e0;
+    --hover: #efefef;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 12px 16px;
+    position: relative;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+    background-color: var(--accent);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .search-container {
+    flex: 1;
+    max-width: 600px;
+  }
+
+  .theme-toggle {
+    margin-left: 12px;
+    height: 40px;
+    width: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    background-color: var(--hover);
+  }
+
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+    position: relative;
+  }
+
+  .menu-toggle {
+    height: 40px;
+    width: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .menu-toggle:hover {
+    background-color: var(--hover);
+  }
+
+  .menu-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    width: 240px;
+    max-height: 60vh;
+    overflow: auto;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    padding: 8px;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    transition: opacity 150ms ease, transform 150ms ease;
+    pointer-events: none;
+    z-index: 200;
+  }
+
+  .menu-panel.open {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .menu-panel::before,
+  .menu-panel::after {
+    content: "";
+    position: absolute;
+    right: 18px;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+  }
+
+  .menu-panel::before {
+    border-bottom: 8px solid var(--border);
+  }
+
+  .menu-panel::after {
+    top: -7px;
+    border-bottom: 8px solid var(--bg-card);
+  }
+
+  .menu-panel h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 6px 8px;
+  }
+
+  .menu-list {
+    list-style: none;
+  }
+
+  .menu-list li {
+    margin: 0;
+  }
+
+  .menu-list a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .menu-list a:hover {
+    background: var(--hover);
+  }
+
+  .menu-separator {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 4px 8px 4px;
+    border: 0;
+  }
+
+  .search-input {
+    width: 100%;
+    height: 40px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 0 16px;
+    color: var(--text-primary);
+    font-size: 16px;
+    outline: none;
+  }
+
+  .search-input:focus {
+    border-color: var(--accent);
+    background-color: var(--bg-primary);
+  }
+
+  .search-input::placeholder {
+    color: var(--text-secondary);
+  }
+
+  /* Categories */
+  .categories {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    overflow-x: auto;
+  }
+
+  .category-btn {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .category-btn:hover {
+    background-color: var(--hover);
+  }
+
+  .category-btn.active {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+  }
+
+  /* Main Content */
+  .main-content {
+    max-width: 1200px;
+    margin: 16px auto;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Video Grid */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .video-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .video-thumbnail {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: var(--bg-secondary);
+  }
+
+  .video-thumbnail iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+
+  .play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+  }
+
+  .video-card:hover .play-overlay {
+    opacity: 1;
+  }
+
+  .video-info {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .video-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .video-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .video-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  /* Download Buttons */
+  .download-section {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .download-btn {
+    flex: 1;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .download-btn:hover {
+    background-color: #cc0000;
+    transform: translateY(-1px);
+  }
+
+  .download-btn.vertical {
+    background-color: #4CAF50;
+  }
+
+  .download-btn.vertical:hover {
+    background-color: #45a049;
+  }
+
+  .download-btn.horizontal {
+    background-color: #2196F3;
+  }
+
+  .download-btn.horizontal:hover {
+    background-color: #1976D2;
+  }
+
+  .download-btn:disabled {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .download-btn:disabled:hover {
+    background-color: var(--bg-secondary);
+    transform: none;
+  }
+
+  .download-icon {
+    font-size: 14px;
+  }
+
+  /* No Videos */
+  .no-videos {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header-top {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .categories {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .video-title {
+      font-size: 14px;
+    }
+
+    .video-description {
+      font-size: 13px;
+    }
+
+    .category-btn {
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<header class="header">
+  <div class="header-top">
+    <a href="#" class="logo">
+      <div class="logo-icon">V</div>
+      VideoArşiv
+    </a>
+    <div class="search-container">
+      <input type="text" id="search" class="search-input" placeholder="Aradığın ne varsa..." autocomplete="off">
+    </div>
+    <div id="menuWrapper" class="action-buttons">
+      <button id="themeToggle" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">🌙</button>
+      <button id="menuToggle" class="menu-toggle" aria-haspopup="true" aria-expanded="false"
+        aria-label="Menüyü aç/kapat" title="Menü">☰</button>
+      <div id="menuPanel" class="menu-panel" role="menu" aria-labelledby="menuToggle">
+        <ul class="menu-list">
+          {% unless page.url == "/" %}
+          <li><a href="{{ site.baseurl }}/" role="menuitem">Anasayfa</a></li>
+          {% endunless %}
+          <li><a href="{{ site.baseurl }}/aboutus" role="menuitem">Hakkımızda</a></li>
+          <li><a href="{{ site.baseurl }}/blog" role="menuitem">Blog</a></li>
+          <li><a href="{{ site.baseurl }}/contact" role="menuitem">İletişim</a></li>
+          <li><a href="{{ site.baseurl }}/faq" role="menuitem">S.S.S</a></li>
+          <li><a href="{{ site.baseurl }}/privacy-policy" role="menuitem">Privacy Policy</a></li>
+        </ul>
+        <hr class="menu-separator" />
+        <ul class="menu-list">
+          {% assign _pages_list = site.pages | where_exp: "p", "p.path contains '_pages/'" | sort: 'title' %}
+          {% for p in _pages_list %}
+          {% if p.path contains '.html' and p.path contains '/_drafts/' == false %}
+          <li><a href="{{ site.baseurl }}{{ p.url }}" role="menuitem">{{ p.title | default: p.name }}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="categories">
+  <button class="category-btn active" data-category="all">Tümü</button>
+  <button class="category-btn" data-category="yeni">Yeni Eklenenler</button>
+  <button class="category-btn" data-category="aranan">En Çok Arananlar</button>
+  <button class="category-btn" data-category="cokizlenen">En Çok İzlenenler</button>
+  <button class="category-btn" data-category="begenilen">En Çok Beğenilenler</button>
+  <button class="category-btn" data-category="paylasilan">En Çok Paylaşılanlar</button>
+</div>
+
+<main class="main-content">
+  <div class="video-grid" id="videoGrid">
+    {% if site.videos.size > 0 %}
+    {% for video in site.videos %}
+    <div class="video-card" data-category="{{ video.categories | first | downcase }}">
+      <div class="video-thumbnail">
+        <iframe data-src="{{ video.video-url }}" allowfullscreen></iframe>
+        <div class="play-overlay">▶</div>
+      </div>
+      <div class="video-info">
+        <h3 class="video-title">{{ video.title }}</h3>
+        <div class="video-meta"></div>
+        <div class="download-section">
+          {% if video.download-horizontal %}
+          <a href="{{ video.download-horizontal }} download" class="download-btn horizontal force-download">
+            <span class="download-icon">⬇️</span>
+            <span>İndir (Yatay)</span>
+          </a>
+          {% else %}
+          <button class="download-btn horizontal" disabled>
+            <span class="download-icon">❌</span>
+            <span>Yatay Yok</span>
+          </button>
+          {% endif %}
+
+          {% if video.download-vertical %}
+          <a href="{{ video.download-vertical }}" class="download-btn vertical force-download">
+            <span class="download-icon">⬇️</span>
+            <span>İndir (Dikey)</span>
+          </a>
+          {% else %}
+          <button class="download-btn vertical" disabled>
+            <span class="download-icon">❌</span>
+            <span>Dikey Yok</span>
+          </button>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="no-videos">
+      <div class="no-videos-icon">📹</div>
+      <h3>Henüz video eklenmemiş</h3>
+      <p>_videos klasörüne .md dosyaları ekleyerek videoları görüntüleyebilirsiniz.</p>
+    </div>
+    {% endif %}
+  </div>
+</main>
+
+<script>
+  // Theme init
+  (() => {
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initial = savedTheme || (prefersDark ? 'dark' : 'light');
+      if (initial === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    } catch (_) { }
+  })();
+
+  const themeToggleBtn = document.getElementById('themeToggle');
+  function setToggleIcon() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    themeToggleBtn.textContent = isLight ? '☀️' : '🌙';
+    themeToggleBtn.setAttribute('aria-label', isLight ? 'Koyu moda geç' : 'Açık moda geç');
+    themeToggleBtn.setAttribute('title', isLight ? 'Koyu moda geç' : 'Açık moda geç');
+  }
+  function toggleTheme() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const next = isLight ? 'dark' : 'light';
+    if (next === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    try { localStorage.setItem('theme', next); } catch (_) { }
+    setToggleIcon();
+  }
+  setToggleIcon();
+  themeToggleBtn.addEventListener('click', toggleTheme);
+
+  const searchInput = document.getElementById('search');
+  const videoCards = document.querySelectorAll('.video-card');
+  const categoryButtons = document.querySelectorAll('.category-btn');
+
+  // Menu toggle
+  const menuWrapper = document.getElementById('menuWrapper');
+  const menuToggleBtn = document.getElementById('menuToggle');
+  const menuPanel = document.getElementById('menuPanel');
+  function closeMenuPanel() {
+    menuPanel.classList.remove('open');
+    menuToggleBtn.setAttribute('aria-expanded', 'false');
+  }
+  menuToggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const willOpen = !menuPanel.classList.contains('open');
+    menuPanel.classList.toggle('open');
+    menuToggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  });
+  document.addEventListener('click', (e) => {
+    if (!menuWrapper.contains(e.target)) closeMenuPanel();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenuPanel();
+  });
+
+
+  // Arama
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase().trim();
+    videoCards.forEach(card => {
+      const title = card.querySelector('.video-title').textContent.toLowerCase();
+      card.style.display = title.includes(query) ? '' : 'none';
+    });
+  });
+
+  // Kategori filtreleme
+  categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      categoryButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const category = btn.dataset.category;
+      videoCards.forEach(card => {
+        card.style.display = category === 'all' || card.dataset.category === category ? '' : 'none';
+      });
+      searchInput.value = '';
+    });
+  });
+
+  // Play butonu
+  document.querySelectorAll('.video-card').forEach(card => {
+    const iframe = card.querySelector('iframe');
+    const overlay = card.querySelector('.play-overlay');
+
+    overlay.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (iframe.dataset.src) {
+        iframe.src = iframe.dataset.src + "?autoplay=1";
+        delete iframe.dataset.src;
+      }
+      overlay.style.display = "none";
+      iframe.style.pointerEvents = "auto";
+    });
+  });
+</script>
+<script>
+  // Player dışı indirme butonlarını zorla indir
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".force-download").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault(); // Yeni sekmeyi engelle
+        const url = this.href;
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = url.split('/').pop(); // Dosya adını otomatik al
+        document.body.appendChild(a);
+        a.click(); // İndirmeyi başlat
+        document.body.removeChild(a);
+      });
+    });
+  });
+</script>

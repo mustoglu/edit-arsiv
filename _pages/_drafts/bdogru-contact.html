@@ -1,0 +1,225 @@
+---
+title: "Mehmet Bahadır DOĞRU" 
+layout: default
+permalink: "/bdogru-contact"
+---
+
+    <div class="row gap-y listrecent listrecent listauthor justify-content-center">
+        {% for member in site.team limit:1 %}
+            <div class="col-lg-4 mb-5">
+                <div class="p-4 border rounded team-member-card">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-between mb-4 mb-md-1">
+                            <img alt="{{ member.title }}" src="{{ site.baseurl }}{{ member.image }}" class="rounded-circle">
+                        </div>
+                        <div class="col-md-12">
+                            <h4 class="text-dark mb-0 justify-content-center text-center">{{ member.title }}</h4>
+                            <p class="text-muted text-center">{{ member.position }}</p>
+                        </div>
+                        <div class="icon-block d-flex justify-content-center flex-column">  
+                            <a href="about:blank" class="contact-button mb-3">
+                                Visit Children and Y.A. Catalogue
+                            </a>
+                            <a href="about:blank" class="contact-button mb-3">
+                                Visit Adult Catalogue
+                            </a>
+                            <a href="about:blank" class="contact-button mb-3">
+                                Visit Award-Winning Catalogue
+                            </a>
+                            <a href="data:text/vcard;charset=utf-8,BEGIN:VCARD%0AVERSION:3.0%0AN:DOĞRU;Mehmet Bahadır;;;%0AFN:Mehmet Bahadır DOĞRU%0AORG:Mediterranean Agency%0ATITLE:Chief Business Officer%0ATEL;type=CELL:+905325866356%0AEMAIL:rights@mediterraneanagency.com%0AURL:https://mediterranean.agency/%0AEND:VCARD" class="contact-button">
+                                Add Contact
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<style>
+    .team-member-card {
+        position: relative;
+        height: auto;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        overflow: hidden;
+        margin: 0 auto;
+        max-width: 300px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .team-member-card img {
+        max-width: 70%;
+        height: auto;
+        margin: 0 auto 20px auto;
+        display: block;
+        pointer-events: none;
+    }
+
+    .team-member-card h4, 
+    .team-member-card p {
+        pointer-events: none;
+    }
+
+    .team-member-card h4 {
+        margin: 15px 0 5px 0;
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .team-member-card p {
+        font-size: 0.9rem;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #6c757d;
+    }
+
+    .team-member-card .icon-block {
+        width: 90%;
+        margin-top: 8px !important;
+        padding: 0 !important;
+        text-align: center;
+        position: relative;
+        left: 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .team-member-card .icon-block a {
+        margin: 0 20px;
+        font-size: 2.2em;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .team-member-card .icon-block a i {
+        transition: all 0.2s ease;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: #f8f9fa;
+    }
+
+    .team-member-card .icon-block a:hover i {
+        transform: scale(1.2);
+        color: #007bff;
+        background-color: #e9ecef;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .team-member-card a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .team-member-card a:hover p {
+        color: #007bff;
+        cursor: pointer;
+    }
+
+    /* Footer'ı bu sayfada gizle */
+    footer, .site-footer, #footer, .footer {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Footer'ın wrapper'ını da gizle */
+    .footer-wrapper, #footer-wrapper, .site-footer-wrapper {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+    }
+
+    @media (max-width: 768px) {
+        .team-member-card {
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        
+        .contact-button {
+            font-size: 0.6rem !important;
+            padding: 6px 10px;
+            max-width: 200px;
+            margin: 0 auto 8px;
+        }
+        
+        .team-member-card .icon-block {
+            width: 95%;
+            padding: 10px;
+        }
+    }
+
+    .col-md-12 {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .text-muted {
+        margin: 0 !important;
+        padding: 0 !important;
+        margin-bottom: 5px !important;
+    }
+
+.contact-button {
+  padding: 8px 15px;
+  border: 2px solid #2c2c2c;
+  background-color: #1a1a1a;
+  color: #ffffff !important;
+  font-size: 0.65rem !important;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.4s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+  width: 100%;
+  max-width: 250px;
+  display: block;
+  text-align: center;
+  margin: 0 auto 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
+
+.contact-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: scale(0);
+  transition: transform 0.5s ease;
+}
+
+.contact-button:hover::after {
+  transform: scale(4);
+}
+
+.contact-button:hover {
+  border-color: #666666;
+  background: #292929;
+  color: #ffffff !important;
+}
+
+</style>
