@@ -591,9 +591,7 @@ layout: none
   (() => {
     try {
       const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const initial = savedTheme || (prefersDark ? 'dark' : 'light');
-      if (initial === 'light') {
+      if (savedTheme === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
       } else {
         document.documentElement.removeAttribute('data-theme');
