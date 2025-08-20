@@ -1,0 +1,85 @@
+<style>
+  .top-ticker {
+    background: linear-gradient(90deg, var(--accent) 0%, rgba(255, 0, 0, 0.6) 40%, var(--bg-secondary) 100%);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  [data-theme="light"] .top-ticker {
+    background: linear-gradient(90deg, var(--accent) 0%, rgba(211, 0, 0, 0.65) 40%, #ffffff 100%);
+  }
+  .top-ticker-inner {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 6px 0;
+  }
+  .top-ticker-inner::before,
+  .top-ticker-inner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .top-ticker-inner::before { left: 0; background: linear-gradient(90deg, rgba(15,15,15,0.85), rgba(15,15,15,0)); }
+  .top-ticker-inner::after { right: 0; background: linear-gradient(270deg, rgba(15,15,15,0.85), rgba(15,15,15,0)); }
+  [data-theme="light"] .top-ticker-inner::before { background: linear-gradient(90deg, rgba(255,255,255,0.85), rgba(255,255,255,0)); }
+  [data-theme="light"] .top-ticker-inner::after { background: linear-gradient(270deg, rgba(255,255,255,0.85), rgba(255,255,255,0)); }
+
+  /* Badge removed */
+
+  .top-ticker-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    padding-left: 0;
+    animation: top-ticker-scroll 18s linear infinite;
+  }
+  .top-ticker:hover .top-ticker-list { animation-play-state: paused; }
+  .top-ticker-item {
+    display: inline-block;
+    padding: 0 28px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  [data-theme="light"] .top-ticker-item { color: #111; }
+  .top-ticker-item + .top-ticker-item::before {
+    content: "•";
+    color: rgba(255,255,255,0.7);
+    margin-right: 28px;
+  }
+  [data-theme="light"] .top-ticker-item + .top-ticker-item::before { color: rgba(0,0,0,0.5); }
+  @keyframes top-ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (max-width: 480px) {
+    .top-ticker-item { font-size: 13px; padding: 0 18px; }
+    .top-ticker-item + .top-ticker-item::before { margin-right: 18px; }
+    .top-ticker-list { padding-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .top-ticker-list { animation: none; }
+  }
+</style>
+
+<div class="top-ticker" aria-label="Bilgi">
+  <div class="top-ticker-inner">
+    <ul class="top-ticker-list">
+      {% assign msgs = site.data.ticker.messages | default: site.data.ticker %}
+      {% for m in msgs %}
+        <li class="top-ticker-item">{{ m | escape }}</li>
+      {% endfor %}
+      {% for m in msgs %}
+        <li class="top-ticker-item">{{ m | escape }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+

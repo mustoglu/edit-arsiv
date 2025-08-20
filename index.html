@@ -551,10 +551,11 @@ layout: none
 </style>
 
 <header class="header">
+  {% include top-ticker.html %}
   <div class="header-top">
     <a href="#" class="logo">
       <div class="logo-icon">V</div>
-      VideoArşiv
+      Edit Arşiv
     </a>
     <div class="search-container">
       <input type="text" id="search" class="search-input" placeholder="Aradığın ne varsa..." autocomplete="off">
@@ -635,6 +636,10 @@ layout: none
           {% endif %}
 
         </div>
+      </div>
+      <div class="searchable-text" hidden>
+        {{ video.title }} {{ video.tags | join: ' ' }} {{ video.categories | join: ' ' }}
+        {{ video.content | markdownify | strip_html | strip_newlines | replace: '  ', ' ' }}
       </div>
     </div>
     {% endfor %}
@@ -717,12 +722,14 @@ layout: none
   });
 
 
-  // Arama
+  // Arama - başlık + gizli içerik (.md gövdesi, etiket, kategori)
   searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase().trim();
     videoCards.forEach(card => {
-      const title = card.querySelector('.video-title').textContent.toLowerCase();
-      card.style.display = title.includes(query) ? '' : 'none';
+      const title = card.querySelector('.video-title')?.textContent?.toLowerCase() || '';
+      const haystack = card.querySelector('.searchable-text')?.textContent?.toLowerCase() || '';
+      const match = title.includes(query) || haystack.includes(query);
+      card.style.display = match ? '' : 'none';
     });
   });
 
