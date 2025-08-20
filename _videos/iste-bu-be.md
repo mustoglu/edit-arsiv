@@ -1,13 +1,13 @@
 ---
 layout: video
-title: "banu alkan veri delişıns"
-categories: ["cokizlenen"]
-tags: ["banualkan", "banu", "alkan", "veridelişıns", "safiye", "soyman"]
+title: "kadıköy boğası işte bu be"
+categories: ["paylasilan"]
+tags: ["kadıköy", "boğası", "fenerbahçe", "yeah", "komik"]
 
-video-url: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/veri-delis%C4%B1ns-yatay.mp4"
-download-horizontal: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/veri-delis%C4%B1ns-yatay.mp4"
-download-vertical: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/veri-delis%C4%B1ns-dikey.mp4"
-video-thumbnail: "assets/images/thumbnail/veri-delisıns.png"
+video-url: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/istebube-yatay.mp4"
+download-horizontal: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/istebube-yatay.mp4"
+download-vertical: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/istebube-dikey.mp4"
+video-thumbnail: "assets/images/thumbnail/istebube.png"
 video-duration: "12:30"
 video-views: "32 B görüntüleme"
 video-date: "5 gün önce"
