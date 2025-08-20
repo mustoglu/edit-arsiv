@@ -80,3 +80,4 @@ Düzenli içerik üretimi için:
 Her sosyal medya platformu, kendine özgü algoritma ve kullanıcı davranışlarına sahiptir. Platformlara özel içerik üretimi, başarılı bir sosyal medya stratejisinin temelidir. İçeriklerinizi her platform için optimize ederek, maksimum etkileşim ve erişim elde edebilirsiniz.
 
 Sosyal medya video stratejileri hakkında daha fazla bilgi için blog sayfamızı takip etmeye devam edin!
+
