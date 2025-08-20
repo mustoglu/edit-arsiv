@@ -1,13 +1,13 @@
 ---
 layout: video
-title: "Arabalar ve Teknoloji Ben"
+title: "ask bahcesi websiteyi gezer misin hata falan varmı indirmeyi falan kontrol edersin"
 image: assets/images/ean/9789757762652.jpg
 categories: ["otomobil"]
 tags: ["araba", "teknoloji", "motor", "elektrik", "sürüş"]
 
 video-url: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/Ne%20Anlad%C4%B1n%20Yurdag%C3%BCl%20Ne%20Anlad%C4%B1n!%20(2).mp4"
 download-horizontal: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/Ne%20Anlad%C4%B1n%20Yurdag%C3%BCl%20Ne%20Anlad%C4%B1n!%20(2).mp4?autoplay=1"
-download-vertical: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/Ne%20Anlad%C4%B1n%20Yurdag%C3%BCl%20Ne%20Anlad%C4%B1n!%20(2).mp4"
+download-vertical: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/Ne%20Anlad%C4%B1n%20Yurdag%C3%BCl%20Ne%20Anlad%C4%B1n!%20(2).mp4?autoplay=1"
 video-thumbnail: "assets/images/ean/9789757762652.jpg"
 video-duration: "12:30"
 video-views: "32 B görüntüleme"
