@@ -978,16 +978,34 @@ layout: none
       <button id="menuToggle" class="menu-toggle" aria-haspopup="true" aria-expanded="false"
         aria-label="Menüyü aç/kapat" title="Menü">☰</button>
       <div id="menuPanel" class="menu-panel" role="menu" aria-labelledby="menuToggle">
-        <ul class="menu-list">
+        <ul class="menu-list" role="menu">
           {% unless page.url == "/" %}
-          <li><a href="{{ site.baseurl }}/" role="menuitem">Anasayfa</a></li>
+          <li role="none">
+            <a href="{{ site.baseurl }}/" role="menuitem">Anasayfa</a>
+          </li>
           {% endunless %}
-          <li><a href="{{ site.baseurl }}/aboutus" role="menuitem">Hakkımızda</a></li>
-          <li><a href="{{ site.baseurl }}/blog" role="menuitem">Blog</a></li>
-          <li><a href="{{ site.baseurl }}/contact" role="menuitem">İletişim</a></li>
-          <li><a href="{{ site.baseurl }}/faq" role="menuitem">S.S.S</a></li>
-          <li><a href="{{ site.baseurl }}/privacy-policy" role="menuitem">Privacy Policy</a></li>
+          
+          <li role="none">
+            <a href="{{ site.baseurl }}/aboutus" role="menuitem">Hakkımızda</a>
+          </li>
+          
+          <li role="none">
+            <a href="{{ site.baseurl }}/blog" role="menuitem">Blog</a>
+          </li>
+          
+          <li role="none">
+            <a href="{{ site.baseurl }}/contact" role="menuitem">İletişim</a>
+          </li>
+          
+          <li role="none">
+            <a href="{{ site.baseurl }}/faq" role="menuitem">S.S.S</a>
+          </li>
+          
+          <li role="none">
+            <a href="{{ site.baseurl }}/privacy-policy" role="menuitem">Privacy Policy</a>
+          </li>
         </ul>
+        
         <hr class="menu-separator" />
         <ul class="menu-list">
           {% assign _pages_list = site.pages | where_exp: "p", "p.path contains '_pages/'" | sort: 'title' %}
