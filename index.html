@@ -1018,7 +1018,7 @@ layout: none
     <div class="video-card" data-category="{{ video.categories | first | downcase }}">
       <div class="video-thumbnail">
         {% if video.video-thumbnail %}
-        <img src="{{ video.video-thumbnail }}" alt="{{ video.title }} kapak görseli">
+        <img src="{{ video.video-thumbnail }} " fetchpriority=high alt="{{ video.title }} kapak görseli">
         {% endif %}
         <iframe data-src="{{ video.video-url }}?autoplay=1" allowfullscreen></iframe>
         <div class="play-overlay">▶</div>
