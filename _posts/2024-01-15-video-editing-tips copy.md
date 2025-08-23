@@ -1,7 +1,7 @@
 ---
 layout: app
-title: "Video Düzenleme İpuçları: Profesyonel Görünüm İçin 10 Önemli Teknik"
-date: 2025-08-11
+title: "Renk Düzenleme Teknikleri: Profesyonel Görsel Kalite"
+date: 2025-05-18
 categories: ["Video Düzenleme", "İpuçları"]
 excerpt: "Video düzenleme sürecinde profesyonel sonuçlar elde etmek için uygulamanız gereken temel teknikleri ve ipuçlarını öğrenin."
 image: "/assets/images/thumbnail/video-editing.jpg"
@@ -9,7 +9,7 @@ image: "/assets/images/thumbnail/video-editing.jpg"
 
 # Video Düzenleme İpuçları: Profesyonel Görünüm İçin 10 Önemli Teknik
 
-Video düzenleme, modern içerik üretiminin en önemli parçalarından biridir. İyi bir video edit, izleyicinin dikkatini çeker ve mesajınızı etkili bir şekilde iletir. Bu yazıda, video düzenleme sürecinde profesyonel sonuçlar elde etmek için uygulamanız gereken temel teknikleri ve ipuçlarını paylaşacağım.
+Renk düzenleme, videonuzun profesyonel görünmesini sağlayan en önemli faktörlerden biridir. Doğru renk paleti ve ton ayarları, izleyici deneyimini önemli ölçüde artırır.
 
 ## 1. Doğru Yazılım Seçimi
 

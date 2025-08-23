@@ -1,388 +1,701 @@
 ---
 ---
+<!DOCTYPE html>
+<html lang="{{ site.language | default: 'tr' }}" data-bs-theme="light">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="{{ site.baseurl }}/assets/images/favicon/favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseurl }}/assets/images/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseurl }}/assets/images/favicon/favicon-16x16.png">
-<link rel="manifest" href="{{ site.baseurl }}/assets/images/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-config" content="{{ site.baseurl }}/assets/images/favicon/browserconfig.xml">
-<meta name="theme-color" content="#ffffff">
-</head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-<style>
-:root {
-  /* Dark theme (default) */
-  --bg-primary: #0f0f0f;
-  --bg-secondary: #1f1f1f;
-  --bg-card: #2d2d2d;
-  --text-primary: #ffffff;
-  --text-secondary: #aaaaaa;
-  --accent: #ff0000;
-  --border: #3f3f3f;
-  --hover: #383838;
-}
-
-[data-theme="light"] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --bg-card: #ffffff;
-  --text-primary: #111111;
-  --text-secondary: #555555;
-  --accent: #d30000;
-  --border: #e0e0e0;
-  --hover: #efefef;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-a,
-a { text-decoration: none; }
-a:hover { text-decoration: none; }
-
-html, body { height: 100%; }
-
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  overflow-x: hidden;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Header */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: var(--bg-primary);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-}
-
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 12px 16px;
-  position: relative;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--text-primary);
-  text-decoration: none;
-}
-
-.logo-icon {
-  width: 24px;
-  height: 24px;
-  background-color: var(--accent);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.search-container {
-  flex: 1;
-  max-width: 600px;
-}
-
-.search-input {
-  width: 100%;
-  height: 40px;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 0 16px;
-  color: var(--text-primary);
-  font-size: 16px;
-  outline: none;
-}
-
-.search-input:focus {
-  border-color: var(--accent);
-  background-color: var(--bg-primary);
-}
-
-.search-input::placeholder {
-  color: var(--text-secondary);
-}
-
-/* Main Content */
-.main-content {
-  max-width: 1200px;
-  margin: 16px auto;
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  flex: 1 0 auto;
-}
-
-.theme-toggle {
-  margin-left: 12px;
-  height: 40px;
-  width: 40px;
-  min-width: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.theme-toggle:hover {
-  background-color: var(--hover);
-}
-
-.action-buttons {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: 12px;
-  position: relative;
-}
-
-.menu-toggle {
-  height: 40px;
-  width: 40px;
-  min-width: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.menu-toggle:hover {
-  background-color: var(--hover);
-}
-
-.menu-panel {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 10px);
-  width: 240px;
-  max-height: 60vh;
-  overflow: auto;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.45);
-  padding: 8px;
-  opacity: 0;
-  transform: translateY(-6px) scale(0.98);
-  transition: opacity 150ms ease, transform 150ms ease;
-  pointer-events: none;
-  z-index: 200;
-}
-
-.menu-panel.open {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-
-.menu-panel::before,
-.menu-panel::after {
-  content: "";
-  position: absolute;
-  right: 18px;
-  top: -8px;
-  width: 0; height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-}
-
-.menu-panel::before {
-  border-bottom: 8px solid var(--border);
-}
-
-.menu-panel::after {
-  top: -7px;
-  border-bottom: 8px solid var(--bg-card);
-}
-
-.menu-panel h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  padding: 6px 8px;
-}
-
-.menu-list { list-style: none; }
-.menu-list li { margin: 0; }
-.menu-list a {
-  display: block;
-  padding: 10px 12px;
-  border-radius: 8px;
-  color: var(--text-primary);
-  text-decoration: none;
-  font-size: 14px;
-  line-height: 1.2;
-}
-.menu-list a:hover { background: var(--hover); }
-
-.menu-separator {
-  height: 1px;
-  background: var(--border);
-  margin: 6px 4px 8px 4px;
-  border: 0;
-}
-
-.site-footer {
-  margin-top: 24px;
-  border-top: 1px solid var(--border);
-  background-color: var(--bg-primary);
-  color: var(--text-secondary);
-}
-.site-footer .footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 16px;
-  font-size: 14px;
-  text-align: center;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .header-top { flex-direction: column; gap: 12px; }
-}
-@media (max-width: 480px) {
-  .search-input { font-size: 14px; }
-}
-</style>
-
-<header class="header">
-  {% include top-ticker.html %}
-  <div class="header-top">
-    <a href="{{ site.baseurl }}/" class="logo">
-      <div class="logo-icon">V</div>
-      EditArşiv
-    </a>
+  <!-- SEO Meta Tags -->
+  <title>{% if page.title %}{{ page.title }} - {{ site.name }}{% else %}{{ site.name }} - {{ site.description }}{% endif %}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}video editing, video arşiv, edit arşiv{% endif %}">
+  <meta name="author" content="{{ site.name }}">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}">
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/assets/images/og-image.jpg{% endif %}">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}">
+  <meta property="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="twitter:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/assets/images/og-image.jpg{% endif %}">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="{{ site.baseurl }}/assets/images/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="{{ site.baseurl }}/assets/images/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="{{ site.baseurl }}/assets/images/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#6366f1">
+  <meta name="msapplication-config" content="{{ site.baseurl }}/assets/images/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#6366f1">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Fonts - Modern & Soft -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <style>
+    :root {
+      /* Soft Modern Color Palette */
+      --bs-primary: #6366f1;
+      --bs-primary-rgb: 99, 102, 241;
+      --bs-secondary: #64748b;
+      --bs-secondary-rgb: 100, 116, 139;
+      --bs-success: #10b981;
+      --bs-info: #06b6d4;
+      --bs-warning: #f59e0b;
+      --bs-danger: #ef4444;
+      --bs-light: #f8fafc;
+      --bs-dark: #1e293b;
+      
+      /* Soft Background Colors */
+      --soft-bg-primary: #f1f5f9;
+      --soft-bg-secondary: #f8fafc;
+      --soft-bg-card: #ffffff;
+      --soft-border: #e2e8f0;
+      
+      /* Soft Text Colors */
+      --soft-text-primary: #334155;
+      --soft-text-secondary: #64748b;
+      --soft-text-muted: #94a3b8;
+      
+      /* Modern Font Stack */
+      --font-family-sans-serif: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-family-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
     
-    <div id="menuWrapper" class="action-buttons">
-      <button id="themeToggle" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">🌙</button>
-      <button id="menuToggle" class="menu-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Menüyü aç/kapat" title="Menü">☰</button>
-      <div id="menuPanel" class="menu-panel" role="menu" aria-labelledby="menuToggle">
-        <ul class="menu-list">
-          <li><a href="{{ site.baseurl }}/" role="menuitem">Anasayfa</a></li>
-          <li><a href="{{ site.baseurl }}/aboutus" role="menuitem">Hakkımızda</a></li>
-          <li><a href="{{ site.baseurl }}/blog" role="menuitem">Blog</a></li>
-          <li><a href="{{ site.baseurl }}/contact" role="menuitem">İletişim</a></li>
-          <li><a href="{{ site.baseurl }}/faq" role="menuitem">S.S.S</a></li>
-          <li><a href="{{ site.baseurl }}/privacy-policy" role="menuitem">Privacy Policy</a></li>
+    body {
+      font-family: var(--font-family-sans-serif);
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--soft-text-primary);
+      background-color: var(--soft-bg-secondary);
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+    
+    /* Custom Navbar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--soft-border);
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--soft-text-primary) !important;
+    }
+    
+    .navbar-brand .brand-icon {
+      background: linear-gradient(135deg, var(--bs-primary), #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .navbar-nav .nav-link {
+      color: var(--soft-text-secondary) !important;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .navbar-nav .nav-link:hover {
+      color: var(--bs-primary) !important;
+      transform: translateY(-1px);
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+      padding: 4rem 0;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--soft-border);
+    }
+    
+    /* Card Styles */
+    .card {
+      transition: all 0.3s ease;
+      border: 1px solid var(--soft-border);
+      border-radius: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      background: var(--soft-bg-card);
+    }
+    
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      border-color: var(--bs-primary);
+    }
+    
+    /* Video Card */
+    .video-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    
+    .video-card .card-img-top {
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .video-card:hover .card-img-top {
+      transform: scale(1.05);
+    }
+    
+    .video-card .card-body {
+      padding: 1.5rem;
+    }
+    
+    .video-card .card-title {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--soft-text-primary);
+    }
+    
+    .video-card .card-text {
+      color: var(--soft-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    /* Video Player Styles */
+    .video-player-container {
+      position: relative;
+      width: 100%;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .video-player-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Video Info Styles */
+    .video-info {
+      background: var(--soft-bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+      border: 1px solid var(--soft-border);
+    }
+    
+    .video-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--soft-text-secondary);
+    }
+    
+    .video-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Download Section */
+    .download-section {
+      background: var(--soft-bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+      border: 1px solid var(--soft-border);
+    }
+    
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+    
+    /* Related Videos */
+    .related-videos {
+      margin-top: 2rem;
+    }
+    
+    .related-video-card {
+      height: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    .related-video-card:hover {
+      transform: translateY(-3px);
+    }
+    
+    .related-video-card .card-img-top {
+      height: 120px;
+      object-fit: cover;
+    }
+    
+    /* Badge Styles */
+    .badge {
+      font-weight: 500;
+      padding: 0.5em 0.75em;
+      border-radius: 8px;
+    }
+    
+    /* Button Styles */
+    .btn {
+      font-weight: 500;
+      border-radius: 12px;
+      padding: 0.625rem 1.5rem;
+      transition: all 0.2s ease;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--bs-primary), #8b5cf6);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+      background: linear-gradient(135deg, #5b21b6, #7c3aed);
+    }
+    
+    .btn-outline-primary {
+      border: 2px solid var(--bs-primary);
+      color: var(--bs-primary);
+      background: transparent;
+    }
+    
+    .btn-outline-primary:hover {
+      background: var(--bs-primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+    
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--soft-text-primary), #475569);
+      color: #f1f5f9;
+      padding: 3rem 0 1rem;
+      margin-top: 4rem;
+    }
+    
+    .footer h5 {
+      color: #e2e8f0;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .footer a {
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .footer a:hover {
+      color: #e2e8f0;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+    
+    /* Search Bar */
+    .search-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .search-form {
+      position: relative;
+    }
+    
+    .search-input {
+      padding: 0.875rem 1rem;
+      border-radius: 12px;
+      border: 2px solid var(--soft-border);
+      background: var(--soft-bg-card);
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+    
+    .search-input:focus {
+      border-color: var(--bs-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      outline: none;
+    }
+    
+    .search-btn {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--bs-primary);
+      padding: 0.5rem;
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      background: var(--soft-bg-card);
+      border: 2px solid var(--soft-border);
+      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      color: var(--soft-text-secondary);
+    }
+    
+    .theme-toggle:hover {
+      border-color: var(--bs-primary);
+      color: var(--bs-primary);
+      transform: translateY(-1px);
+    }
+    
+    /* Form Controls */
+    .form-control {
+      border: 2px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 0.875rem 1rem;
+      background: var(--soft-bg-card);
+      color: var(--soft-text-primary);
+      transition: all 0.2s ease;
+    }
+    
+    .form-control:focus {
+      border-color: var(--bs-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      outline: none;
+    }
+    
+    .form-control::placeholder {
+      color: var(--soft-text-muted);
+    }
+    
+    /* Accordion Styles */
+    .accordion-item {
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .accordion-button {
+      background: var(--soft-bg-card);
+      border: none;
+      border-radius: 12px;
+      color: var(--soft-text-primary);
+      font-weight: 500;
+      padding: 1.25rem 1.5rem;
+    }
+    
+    .accordion-button:not(.collapsed) {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+      color: var(--bs-primary);
+    }
+    
+    .accordion-button:focus {
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 2rem 0;
+      }
+      
+      .navbar-brand {
+        font-size: 1.25rem;
+      }
+      
+      .video-meta {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      
+      .card {
+        border-radius: 12px;
+      }
+      
+      .btn {
+        border-radius: 10px;
+      }
+    }
+    
+    /* Loading Animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Dark Mode Support */
+    [data-bs-theme="dark"] {
+      --soft-bg-primary: #1e293b;
+      --soft-bg-secondary: #0f172a;
+      --soft-bg-card: #1e293b;
+      --soft-border: #334155;
+      --soft-text-primary: #f1f5f9;
+      --soft-text-secondary: #cbd5e1;
+      --soft-text-muted: #94a3b8;
+    }
+    
+    [data-bs-theme="dark"] .navbar {
+      background: rgba(30, 41, 59, 0.95) !important;
+    }
+    
+    [data-bs-theme="dark"] .hero-section {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    }
+  </style>
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ site.name }}",
+    "description": "{{ site.description }}",
+    "url": "{{ site.url }}",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "{{ site.url }}/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ site.baseurl }}/">
+        <i class="bi bi-play-circle-fill brand-icon me-2"></i>
+        {{ site.name }}
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ site.baseurl }}/">Anasayfa</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ site.baseurl }}/news">Haberler</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ site.baseurl }}/blog">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ site.baseurl }}/aboutus">Hakkımızda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ site.baseurl }}/faq">S.S.S</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ site.baseurl }}/contact">İletişim</a>
+          </li>
         </ul>
-        <hr class="menu-separator" />
-        <ul class="menu-list">
-          {% assign _pages_list = site.pages | where_exp: "p", "p.path contains '_pages/'" | sort: 'title' %}
-          {% for p in _pages_list %}
-            {% if p.path contains '.html' and p.path contains '/_drafts/' == false %}
-              <li><a href="{{ site.baseurl }}{{ p.url }}" role="menuitem">{{ p.title | default: p.name }}</a></li>
-            {% endif %}
-          {% endfor %}
-        </ul>
+        
+        <div class="d-flex align-items-center gap-3">
+          <!-- Search Form -->
+          <form class="search-form d-none d-md-block" action="{{ site.baseurl }}/search" method="GET">
+            <div class="position-relative">
+              <input type="text" class="form-control search-input" name="q" placeholder="Video ara..." aria-label="Search">
+              <button type="submit" class="search-btn">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+          
+          <!-- Theme Toggle -->
+          <button class="theme-toggle" id="themeToggle" aria-label="Tema değiştir">
+            <i class="bi bi-moon-fill" id="themeIcon"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  </header>
+  </nav>
 
-<main class="main-content">
-  {{ content }}
-</main>
+  <!-- Main Content -->
+  <main>
+    {{ content }}
+  </main>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    © <script>document.write(new Date().getFullYear())</script> Edit Arşiv
-  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5><i class="bi bi-play-circle-fill me-2"></i>{{ site.name }}</h5>
+          <p class="text-muted">{{ site.description }}</p>
+          <div class="d-flex gap-2">
+            {% if site.instagram %}
+            <a href="{{ site.instagram }}" class="text-light" aria-label="Instagram">
+              <i class="bi bi-instagram fs-5"></i>
+            </a>
+            {% endif %}
+            {% if site.linkedin %}
+            <a href="{{ site.linkedin }}" class="text-light" aria-label="LinkedIn">
+              <i class="bi bi-linkedin fs-5"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5>Hızlı Linkler</h5>
+          <ul class="list-unstyled">
+            <li><a href="{{ site.baseurl }}/">Anasayfa</a></li>
+            <li><a href="{{ site.baseurl }}/blog">Blog</a></li>
+            <li><a href="{{ site.baseurl }}/news">Haberler</a></li>
+            <li><a href="{{ site.baseurl }}/aboutus">Hakkımızda</a></li>
+            <li><a href="{{ site.baseurl }}/contact">İletişim</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5>Yardım</h5>
+          <ul class="list-unstyled">
+            <li><a href="{{ site.baseurl }}/faq">S.S.S</a></li>
+            <li><a href="{{ site.baseurl }}/privacy-policy">Gizlilik Politikası</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5>İletişim</h5>
+          <ul class="list-unstyled">
+            {% if site.email %}
+            <li><a href="mailto:{{ site.email }}"><i class="bi bi-envelope me-2"></i>{{ site.email }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; <script>document.write(new Date().getFullYear())</script> {{ site.name }}. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   
-</footer>
-
-<script>
-// Theme init
-(() => {
-  try {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = savedTheme || (prefersDark ? 'dark' : 'light');
-    if (initial === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
+  <!-- Custom JS -->
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    
+    // Check for saved theme preference or default to light
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-bs-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-bs-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-bs-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+    
+    function updateThemeIcon(theme) {
+      if (theme === 'light') {
+        themeIcon.className = 'bi bi-moon-fill';
+        themeToggle.setAttribute('aria-label', 'Koyu moda geç');
+      } else {
+        themeIcon.className = 'bi bi-sun-fill';
+        themeToggle.setAttribute('aria-label', 'Açık moda geç');
+      }
     }
-  } catch (_) {}
-})();
-
-const themeToggleBtn = document.getElementById('themeToggle');
-function setToggleIcon() {
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  themeToggleBtn.textContent = isLight ? '☀️' : '🌙';
-  themeToggleBtn.setAttribute('aria-label', isLight ? 'Koyu moda geç' : 'Açık moda geç');
-  themeToggleBtn.setAttribute('title', isLight ? 'Koyu moda geç' : 'Açık moda geç');
-}
-function toggleTheme() {
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  const next = isLight ? 'dark' : 'light';
-  if (next === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-  }
-  try { localStorage.setItem('theme', next); } catch (_) {}
-  setToggleIcon();
-}
-setToggleIcon();
-themeToggleBtn.addEventListener('click', toggleTheme);
-
-// Menu toggle
-const menuWrapper = document.getElementById('menuWrapper');
-const menuToggleBtn = document.getElementById('menuToggle');
-const menuPanel = document.getElementById('menuPanel');
-function closeMenuPanel() {
-  menuPanel.classList.remove('open');
-  menuToggleBtn.setAttribute('aria-expanded', 'false');
-}
-menuToggleBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const willOpen = !menuPanel.classList.contains('open');
-  menuPanel.classList.toggle('open');
-  menuToggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-});
-document.addEventListener('click', (e) => {
-  if (!menuWrapper.contains(e.target)) closeMenuPanel();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeMenuPanel();
-});
-</script>
+    
+    // Search functionality
+    const searchForm = document.querySelector('.search-form');
+    if (searchForm) {
+      searchForm.addEventListener('submit', (e) => {
+        const searchInput = searchForm.querySelector('input[name="q"]');
+        if (!searchInput.value.trim()) {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+    
+    // Add loading states to buttons
+    document.querySelectorAll('.btn').forEach(button => {
+      button.addEventListener('click', function() {
+        if (this.type === 'submit' && !this.disabled) {
+          const originalText = this.innerHTML;
+          this.disabled = true;
+          
+          // Re-enable after a delay (adjust as needed)
+          setTimeout(() => {
+            this.innerHTML = originalText;
+            this.disabled = false;
+          }, 50);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 
 

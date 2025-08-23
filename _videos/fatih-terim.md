@@ -1,7 +1,7 @@
 ---
-layout: video
+layout: app
 title: "fatih terim şarkıya eşlik ediyor"
-categories: ["aranan"]
+categories: ["Çok Arananlar"]
 tags: ["fatihterim", "fatih", "terim", "eğleniyor"]
 
 video-url: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/fatih-terim-yatay.mp4"
@@ -12,7 +12,6 @@ video-duration: "12:30"
 video-views: "32 B görüntüleme"
 video-date: "5 gün önce"
 ---
-
 
 <!--more-->
 

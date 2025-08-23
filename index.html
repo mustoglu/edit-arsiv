@@ -1,1410 +1,500 @@
 ---
-layout: none
-<title></title>
+layout: app
+title: Anasayfa
+description: Video arşivinizdeki en iyi kesitleri keşfedin. Edit Arşiv ile videolarınızın ihtiyacı olan kesitleri bulun.
+keywords: video editing, video arşiv, edit arşiv, video kesitleri
 ---
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css">
-  <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
-  <link rel="icon" href="{{ site.baseurl }}/assets/images/favicon/favicon.ico" type="image/x-icon">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseurl }}/assets/images/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseurl }}/assets/images/favicon/favicon-16x16.png">
-<link rel="manifest" href="{{ site.baseurl }}/assets/images/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-config" content="{{ site.baseurl }}/assets/images/favicon/browserconfig.xml">
-<meta name="theme-color" content="#ffffff">
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9382086656585783"
-     crossorigin="anonymous"></script>
-</head>
-
-<style>
-  :root {
-    /* Dark theme (default) */
-    --bg-primary: #0f0f0f;
-    --bg-secondary: #1f1f1f;
-    --bg-card: #2d2d2d;
-    --text-primary: #ffffff;
-    --text-secondary: #aaaaaa;
-    --accent: #ff0000;
-    --border: #3f3f3f;
-    --hover: #383838;
-  }
-
-  [data-theme="light"] {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f5f5f5;
-    --bg-card: #ffffff;
-    --text-primary: #111111;
-    --text-secondary: #555555;
-    --accent: #d30000;
-    --border: #e0e0e0;
-    --hover: #efefef;
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: none;
-  }
-
-  body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* Header */
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background-color: var(--bg-primary);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 12px 16px;
-    position: relative;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-primary);
-    text-decoration: none;
-  }
-
-  .logo-icon {
-    width: 24px;
-    height: 24px;
-    background-color: var(--accent);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .search-container {
-    flex: 1;
-    max-width: 600px;
-  }
-
-  .theme-toggle {
-    margin-left: 12px;
-    height: 40px;
-    width: 40px;
-    min-width: 40px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .theme-toggle:hover {
-    background-color: var(--hover);
-  }
-
-  .action-buttons {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-left: 12px;
-    position: relative;
-  }
-
-  .menu-toggle {
-    height: 40px;
-    width: 40px;
-    min-width: 40px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .menu-toggle:hover {
-    background-color: var(--hover);
-  }
-
-  .menu-panel {
-    position: absolute;
-    right: 0;
-    top: calc(100% + 10px);
-    width: 240px;
-    max-height: 60vh;
-    overflow: auto;
-    background-color: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-    padding: 8px;
-    opacity: 0;
-    transform: translateY(-6px) scale(0.98);
-    transition: opacity 150ms ease, transform 150ms ease;
-    pointer-events: none;
-    z-index: 200;
-  }
-
-  .menu-panel.open {
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-  }
-
-  .menu-panel::before,
-  .menu-panel::after {
-    content: "";
-    position: absolute;
-    right: 18px;
-    top: -8px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-  }
-
-  .menu-panel::before {
-    border-bottom: 8px solid var(--border);
-  }
-
-  .menu-panel::after {
-    top: -7px;
-    border-bottom: 8px solid var(--bg-card);
-  }
-
-  .menu-panel h4 {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    padding: 6px 8px;
-  }
-
-  .menu-list {
-    list-style: none;
-  }
-
-  .menu-list li {
-    margin: 0;
-  }
-
-  .menu-list a {
-    display: block;
-    padding: 10px 12px;
-    border-radius: 8px;
-    color: var(--text-primary);
-    text-decoration: none;
-    font-size: 14px;
-    line-height: 1.2;
-  }
-
-  .menu-list a:hover {
-    background: var(--hover);
-  }
-
-  .menu-separator {
-    height: 1px;
-    background: var(--border);
-    margin: 6px 4px 8px 4px;
-    border: 0;
-  }
-
-  .search-input {
-    width: 100%;
-    height: 40px;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 0 16px;
-    color: var(--text-primary);
-    font-size: 16px;
-    outline: none;
-  }
-
-  .search-input:focus {
-    border-color: var(--accent);
-    background-color: var(--bg-primary);
-  }
-
-  .search-input::placeholder {
-    color: var(--text-secondary);
-  }
-
-  /* Categories */
-  .categories {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 12px 16px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    overflow-x: auto;
-  }
-
-  .category-btn {
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-  }
-
-  .category-btn:hover {
-    background-color: var(--hover);
-  }
-
-  .category-btn.active {
-    background-color: var(--text-primary);
-    color: var(--bg-primary);
-  }
-
-  /* Main Content */
-  .main-content {
-    max-width: 1200px;
-    margin: 16px auto;
-    padding: 0 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  /* Video Grid */
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-  }
-
-  .video-card {
-    background-color: var(--bg-card);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .video-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  }
-
-  .video-thumbnail {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background-color: var(--bg-secondary);
-    cursor: pointer;
-  }
-
-  .video-thumbnail iframe {
-    display: none;
-  }
-
-  .video-thumbnail img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* Modal Player */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.75);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-
-  .modal-overlay.open {
-    display: flex;
-  }
-
-  .modal-content {
-    position: relative;
-    background: var(--bg-primary);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-    max-width: 90vw;
-    max-height: 90vh;
-  }
-
-  .modal-content .plyr__video-embed,
-  .modal-content .plyr__video-embed iframe,
-  .modal-content video {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .modal-close:hover {
-    background: var(--hover);
-  }
-
-  .play-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: #fff;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    cursor: pointer;
-  }
-
-  .video-card:hover .play-overlay {
-    opacity: 1;
-  }
-
-  .video-info {
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .video-title {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .video-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-  }
-
-  .video-description {
-    font-size: 14px;
-    color: var(--text-secondary);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-
-  /* Download Buttons */
-  .download-section {
-    display: flex;
-    gap: 8px;
-    margin-top: auto;
-  }
-
-  .download-btn {
-    flex: 1;
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-  }
-
-  .download-btn:hover {
-    background-color: #cc0000;
-    transform: translateY(-1px);
-  }
-
-  .download-btn.vertical {
-    background-color: #4CAF50;
-  }
-
-  .download-btn.vertical:hover {
-    background-color: #45a049;
-  }
-
-  .download-btn.horizontal {
-    background-color: #2196F3;
-  }
-
-  .download-btn.horizontal:hover {
-    background-color: #1976D2;
-  }
-
-  .download-btn:disabled {
-    background-color: var(--bg-secondary);
-    color: var(--text-secondary);
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .download-btn:disabled:hover {
-    background-color: var(--bg-secondary);
-    transform: none;
-  }
-
-  .download-icon {
-    font-size: 14px;
-  }
-
-  /* No Videos */
-  .no-videos {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--text-secondary);
-  }
-
-  /* Recent Blog Posts */
-  .recent-blogs {
-    background-color: var(--bg-card);
-    border-top: 1px solid var(--border);
-    padding: 20px 16px;
-    margin-top: 16px;
-  }
-
-  .recent-blogs .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .recent-blogs .section-title {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 16px;
-    text-align: center;
-  }
-
-  .recent-blogs .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-  }
-
-  .recent-blogs .blog-card {
-    background-color: var(--bg-secondary);
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .recent-blogs .blog-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  }
-
-  .recent-blogs .blog-image {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background-color: var(--bg-primary);
-  }
-
-  .recent-blogs .blog-image img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .recent-blogs .blog-image .blog-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--bg-primary);
-    color: var(--text-secondary);
-  }
-
-  .recent-blogs .blog-content {
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .recent-blogs .blog-title {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 8px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .recent-blogs .blog-title a {
-    color: var(--text-primary);
-  }
-
-  .recent-blogs .blog-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-  }
-
-  .recent-blogs .blog-date {
-    font-weight: 400;
-  }
-
-  .recent-blogs .blog-category {
-    background-color: var(--accent);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 500;
-  }
-
-  .recent-blogs .blog-excerpt {
-    font-size: 14px;
-    color: var(--text-secondary);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-
-  .recent-blogs .read-more {
-    color: var(--accent);
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .recent-blogs .read-more:hover {
-    color: #cc0000;
-  }
-
-  .recent-blogs .view-all-blogs {
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  .recent-blogs .view-all-btn {
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    text-decoration: none;
-  }
-
-  .recent-blogs .view-all-btn:hover {
-    background-color: #cc0000;
-  }
-
-  .recent-blogs .no-blogs {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--text-secondary);
-  }
-
-  .recent-blogs .no-blogs-icon {
-    font-size: 60px;
-    margin-bottom: 10px;
-  }
-
-  .recent-blogs .no-blogs h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-
-  .recent-blogs .no-blogs p {
-    font-size: 14px;
-    color: var(--text-secondary);
-  }
-
-  /* Minimal Blog Section */
-.minimal-blogs {
-  background-color: var(--bg-card);
-  border-top: 1px solid var(--border);
-  padding: 30px 16px;
-  margin-top: 16px;
-}
-
-.minimal-blogs .container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.minimal-blogs .section-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* Blog Headers Rotator */
-.blog-headers-rotator {
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
-  border-radius: 16px;
-  padding: 30px;
-  margin-bottom: 25px;
-  border: 2px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-
-.rotator-container {
-  position: relative;
-  height: 120px;
-  overflow: hidden;
-}
-
-.rotator-content {
-  position: relative;
-  height: 100%;
-}
-
-.blog-header-item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.blog-header-item.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.blog-header-item h3 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  background: linear-gradient(45deg, var(--accent), #ff6b6b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.blog-header-item p {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  max-width: 500px;
-}
-
-/* Navigation Dots */
-.rotator-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: var(--text-secondary);
-  opacity: 0.3;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dot.active {
-  background-color: var(--accent);
-  opacity: 1;
-  transform: scale(1.2);
-}
-
-.dot:hover {
-  opacity: 0.7;
-  transform: scale(1.1);
-}
-
-/* Blog Preview */
-.blog-preview {
-  background-color: var(--bg-secondary);
-  border-radius: 12px;
-  padding: 25px;
-  border: 1px solid var(--border);
-  text-align: center;
-}
-
-.preview-content h4 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-}
-
-.preview-content p {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 20px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.preview-btn {
-  background: linear-gradient(135deg, var(--accent) 0%, #ff6b6b 100%);
-  color: white;
-  text-decoration: none;
-  padding: 12px 25px;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  display: inline-block;
-  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-}
-
-.preview-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
-  color: white;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .blog-headers-rotator {
-    padding: 20px;
-  }
-  
-  .rotator-container {
-    height: 100px;
-  }
-  
-  .blog-header-item h3 {
-    font-size: 1.4rem;
-  }
-  
-  .blog-header-item p {
-    font-size: 0.9rem;
-  }
-  
-  .blog-preview {
-    padding: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .blog-headers-rotator {
-    padding: 15px;
-  }
-  
-  .rotator-container {
-    height: 90px;
-  }
-  
-  .blog-header-item h3 {
-    font-size: 1.2rem;
-  }
-  
-  .blog-header-item p {
-    font-size: 0.85rem;
-  }
-}
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .header-top {
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .categories {
-      justify-content: flex-start;
-    }
-
-    .recent-blogs .blog-grid {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 12px;
-    }
-
-    .recent-blogs .section-title {
-      font-size: 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .video-title {
-      font-size: 14px;
-    }
-
-    .video-description {
-      font-size: 13px;
-    }
-
-    .category-btn {
-      padding: 6px 10px;
-      font-size: 13px;
-    }
-
-    .recent-blogs .blog-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .recent-blogs .blog-title {
-      font-size: 14px;
-    }
-
-    .recent-blogs .blog-excerpt {
-      font-size: 13px;
-    }
-
-    .recent-blogs .view-all-btn {
-      padding: 8px 16px;
-      font-size: 14px;
-    }
-  }
-</style>
-
-<header class="header">
-  {% include top-ticker.html %}
-  <div class="header-top">
-    <a href="#" class="logo">
-      <div class="logo-icon"></div>
-      Edit Arşiv
-    </a>
-    <div class="search-container">
-      <input type="text" id="search" class="search-input" placeholder="Aradığın ne varsa..." autocomplete="off">
-    </div>
-    <div id="menuWrapper" class="action-buttons">
-      <button id="themeToggle" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">🌙</button>
-      <button id="menuToggle" class="menu-toggle" aria-haspopup="true" aria-expanded="false"
-        aria-label="Menüyü aç/kapat" title="Menü">☰</button>
-      <div id="menuPanel" class="menu-panel" role="menu" aria-labelledby="menuToggle">
-        <ul class="menu-list" role="menu">
-          {% unless page.url == "/" %}
-          <li role="none">
-            <a href="{{ site.baseurl }}/" role="menuitem">Anasayfa</a>
-          </li>
-          {% endunless %}
-          
-          <li role="none">
-            <a href="{{ site.baseurl }}/aboutus" role="menuitem">Hakkımızda</a>
-          </li>
-          
-          <li role="none">
-            <a href="{{ site.baseurl }}/blog" role="menuitem">Blog</a>
-          </li>
-          
-          <li role="none">
-            <a href="{{ site.baseurl }}/contact" role="menuitem">İletişim</a>
-          </li>
-          
-          <li role="none">
-            <a href="{{ site.baseurl }}/faq" role="menuitem">S.S.S</a>
-          </li>
-          
-          <li role="none">
-            <a href="{{ site.baseurl }}/privacy-policy" role="menuitem">Privacy Policy</a>
-          </li>
-        </ul>
-        
-        <hr class="menu-separator" />
-        <ul class="menu-list">
-          {% assign _pages_list = site.pages | where_exp: "p", "p.path contains '_pages/'" | sort: 'title' %}
-          {% for p in _pages_list %}
-          {% if p.path contains '.html' and p.path contains '/_drafts/' == false %}
-          <li><a href="{{ site.baseurl }}{{ p.url }}" role="menuitem">{{ p.title | default: p.name }}</a></li>
-          {% endif %}
-          {% endfor %}
-        </ul>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">
+          Video Arşivinizin <span class="text-primary">En İyi Kesitleri</span>
+        </h1>
+        <p class="lead mb-4">
+          Videolarınızın ihtiyacı olan kesitleri burada. Edit Arşiv ile favori video anlarınızı kolayca bulun ve paylaşın.
+        </p>
+        <div class="d-flex gap-3">
+          <a href="#featured-videos" class="btn btn-primary btn-lg">
+            <i class="bi bi-play-circle me-2"></i>Videoları Keşfet
+          </a>
+          <a href="{{ site.baseurl }}/blog" class="btn btn-outline-secondary btn-lg">
+            <i class="bi bi-journal-text me-2"></i>Blog
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="text-center">
+          <i class="bi bi-play-circle-fill display-1 text-primary opacity-25"></i>
+        </div>
       </div>
     </div>
   </div>
-</header>
+</section>
 
-<div class="categories">
-  <button class="category-btn active" data-category="all">Tümü</button>
-  <button class="category-btn" data-category="yeni">Yeni Eklenenler</button>
-  <button class="category-btn" data-category="aranan">En Çok Arananlar</button>
-  <button class="category-btn" data-category="cokizlenen">En Çok İzlenenler</button>
-  <button class="category-btn" data-category="begenilen">En Çok Beğenilenler</button>
-  <button class="category-btn" data-category="paylasilan">En Çok Paylaşılanlar</button>
-</div>
-
-<main class="main-content">
-  <div class="video-grid" id="videoGrid">
-    {% if site.videos.size > 0 %}
-    {% for video in site.videos %}
-    <div class="video-card" data-category="{{ video.categories | first | downcase }}">
-      <div class="video-thumbnail">
-        {% if video.video-thumbnail %}
-        <img src="{{ video.video-thumbnail }} " fetchpriority=high alt="{{ video.title }} kapak görseli">
-        {% endif %}
-        <iframe data-src="{{ video.video-url }}?autoplay=1" allowfullscreen></iframe>
-        <div class="play-overlay">▶</div>
-      </div>
-      <div class="video-info">
-        <h3 class="video-title">{{ video.title }}</h3>
-        <div class="video-meta"></div>
-        <div class="download-section">
-          {% if video.download-horizontal %}
-          <a href="{{ video.download-horizontal }}?autoplay=1" class="download-btn horizontal force-download">
-            <span class="download-icon">⬇️</span>
-            <span>İndir (Yatay)</span>
-          </a>
-          {% else %}
-          <button class="download-btn horizontal" disabled>
-            <span class="download-icon">❌</span>
-            <span>Yatay Yok</span>
+<!-- Search and Filter Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <!-- Search Bar -->
+        <div class="mb-4">
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" id="searchInput" placeholder="Video adı, kategori veya etiket ara..." aria-label="Video ara">
+            <button class="btn btn-primary" type="button" id="searchBtn">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Category Filter -->
+        <div class="d-flex flex-wrap gap-2 justify-content-center" id="categoryFilter">
+          <button class="btn btn-outline-primary active" data-category="all">
+            Tümü
           </button>
-          {% endif %}
-
-          {% if video.download-vertical %}
-          <a href="{{ video.download-vertical }}" class="download-btn vertical force-download">
-            <span class="download-icon">⬇️</span>
-            <span>İndir (Dikey)</span>
-          </a>
-          {% else %}
-          <button class="download-btn vertical" disabled>
-            <span class="download-icon">❌</span>
-            <span>Dikey Yok</span>
-          </button>
-          {% endif %}
-
+          {% assign categories = site.videos | map: "categories" | uniq | sort %}
+          {% for category in categories %}
+            {% if category != nil %}
+            <button class="btn btn-outline-primary" data-category="{{ category }}">
+              {{ category | capitalize }}
+            </button>
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
-      <div class="searchable-text" hidden>
-        {{ video.title }} {{ video.tags | join: ' ' }} {{ video.categories | join: ' ' }}
-        {{ video.content | markdownify | strip_html | strip_newlines | replace: '  ', ' ' }}
+    </div>
+  </div>
+</section>
+
+<!-- Videos Grid -->
+<section id="featured-videos" class="py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h2 class="h3 mb-2">Tüm Videolar</h2>
+            <p class="text-muted mb-0">Video arşivimizdeki tüm video kesitlerini keşfedin</p>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <span class="text-muted" id="videoCount">{{ site.videos.size }} video</span>
+            <select class="form-select" id="sortSelect" style="width: auto;">
+              <option value="title">İsme Göre</option>
+              <option value="date">Tarihe Göre</option>
+              <option value="views">Görüntülemeye Göre</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
-    {% endfor %}
-    {% else %}
-    <div class="no-videos">
-      <div class="no-videos-icon">📹</div>
-      <h3>Henüz video eklenmemiş</h3>
-      <p>_videos klasörüne .md dosyaları ekleyerek videoları görüntüleyebilirsiniz.</p>
+    
+    <div class="row g-4" id="videosGrid">
+      {% assign all_videos = site.videos | sort: 'title' %}
+      {% for video in all_videos %}
+      <div class="col-lg-4 col-md-6 video-item" 
+           data-categories="{{ video.categories | join: ' ' }}"
+           data-title="{{ video.title | downcase }}"
+           data-tags="{{ video.tags | join: ' ' | downcase }}"
+           data-date="{{ video.date | date: '%Y%m%d' }}"
+           data-views="{{ video.video-views | remove: ' B görüntüleme' | remove: ' K görüntüleme' | remove: ' M görüntüleme' }}">
+        <div class="card video-card h-100">
+          <img src="{{ site.baseurl }}/{{ video.video-thumbnail }}" 
+               class="card-img-top" alt="{{ video.title }}"
+               loading="lazy">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ video.title }}</h5>
+            <p class="card-text flex-grow-1">{{ video.excerpt | default: "Video kesiti" | truncate: 100 }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex gap-2">
+                {% if video.categories %}
+                <span class="badge bg-primary">{{ video.categories | first }}</span>
+                {% endif %}
+                {% if video.tags %}
+                <span class="badge bg-secondary">{{ video.tags | first }}</span>
+                {% endif %}
+              </div>
+              <button class="btn btn-sm btn-primary play-video-btn" 
+                      data-video-url="{{ video.video-url }}" 
+                      data-video-title="{{ video.title }}"
+                      data-video-thumbnail="{{ video.video-thumbnail }}">
+                <i class="bi bi-play me-1"></i>İzle
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <!-- No Results Message -->
+    <div class="row" id="noResults" style="display: none;">
+      <div class="col-12 text-center">
+        <div class="py-5">
+          <i class="bi bi-search display-1 text-muted mb-3"></i>
+          <h3>Sonuç Bulunamadı</h3>
+          <p class="text-muted">Arama kriterlerinize uygun video bulunamadı.</p>
+          <button class="btn btn-primary" onclick="clearFilters()">
+            <i class="bi bi-arrow-clockwise me-2"></i>Filtreleri Temizle
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    {% if all_videos.size == 0 %}
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="py-5">
+          <i class="bi bi-collection-play display-1 text-muted mb-3"></i>
+          <h3>Henüz video yok</h3>
+          <p class="text-muted">Video arşivimiz yakında güncellenecek.</p>
+        </div>
+      </div>
     </div>
     {% endif %}
   </div>
-</main>
+</section>
 
-
-
-  
-
-<!-- Modal Player -->
-<div id="playerModal" class="modal-overlay" aria-hidden="true">
-  <div class="modal-content" id="modalContent">
-    <button id="modalClose" class="modal-close" aria-label="Kapat">✕</button>
-    <div id="modalInner"></div>
+<!-- Categories Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12">
+        <h2 class="h3 mb-3">Kategoriler</h2>
+        <p class="text-muted">Video kesitlerimizi kategorilere göre keşfedin</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi bi-music-note-beamed display-4 text-primary mb-3"></i>
+            <h5 class="card-title">Müzik</h5>
+            <p class="card-text">En iyi müzik kesitleri ve performanslar</p>
+            <button class="btn btn-outline-primary category-filter-btn" data-category="muzik">Keşfet</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-6">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi bi-camera-video display-4 text-primary mb-3"></i>
+            <h5 class="card-title">Spor</h5>
+            <p class="card-text">Spor anları ve unutulmaz maç kesitleri</p>
+            <button class="btn btn-outline-primary category-filter-btn" data-category="spor">Keşfet</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-6">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi bi-film display-4 text-primary mb-3"></i>
+            <h5 class="card-title">Film</h5>
+            <p class="card-text">Film sahneleri ve sinema kesitleri</p>
+            <button class="btn btn-outline-primary category-filter-btn" data-category="film">Keşfet</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-6">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi bi-mic display-4 text-primary mb-3"></i>
+            <h5 class="card-title">Konuşma</h5>
+            <p class="card-text">Etkileyici konuşma ve röportaj kesitleri</p>
+            <button class="btn btn-outline-primary category-filter-btn" data-category="konusma">Keşfet</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
+</section>
+
+<!-- Latest Blog Posts -->
+<section class="py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12">
+        <h2 class="h3 mb-3">Son Blog Yazıları</h2>
+        <p class="text-muted">Video düzenleme ipuçları ve güncel haberler</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      {% assign recent_posts = site.posts | limit: 3 %}
+      {% for post in recent_posts %}
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-2">
+              <small class="text-muted">
+                <i class="bi bi-calendar3 me-1"></i>
+                {{ post.date | date: "%d.%m.%Y" }}
+              </small>
+            </div>
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.excerpt | default: post.content | strip_html | truncate: 120 }}</p>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <a href="{{ site.baseurl }}/blog" class="btn btn-outline-primary">
+          <i class="bi bi-journal-text me-2"></i>Tüm Blog Yazıları
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8">
+        <h2 class="mb-4">Video Arşivinizi Keşfetmeye Hazır mısınız?</h2>
+        <p class="lead mb-4">
+          Binlerce video kesiti arasından aradığınızı bulun ve favori anlarınızı paylaşın.
+        </p>
+        <div class="d-flex gap-3 justify-content-center">
+          <a href="#featured-videos" class="btn btn-light btn-lg">
+            <i class="bi bi-play-circle me-2"></i>Videoları Keşfet
+          </a>
+          <a href="{{ site.baseurl }}/contact" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-envelope me-2"></i>İletişime Geç
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Video Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="videoModalLabel">Video İzle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="video-player-container">
+          <video controls id="modalVideo" style="width: 100%; height: auto;">
+            Tarayıcınız video oynatmayı desteklemiyor.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-  // Theme init
-  (() => {
-    try {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
-    } catch (_) { }
-  })();
-
-  const themeToggleBtn = document.getElementById('themeToggle');
-  function setToggleIcon() {
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    themeToggleBtn.textContent = isLight ? '☀️' : '🌙';
-    themeToggleBtn.setAttribute('aria-label', isLight ? 'Koyu moda geç' : 'Açık moda geç');
-    themeToggleBtn.setAttribute('title', isLight ? 'Koyu moda geç' : 'Açık moda geç');
-  }
-  function toggleTheme() {
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    const next = isLight ? 'dark' : 'light';
-    if (next === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-    }
-    try { localStorage.setItem('theme', next); } catch (_) { }
-    setToggleIcon();
-  }
-  setToggleIcon();
-  themeToggleBtn.addEventListener('click', toggleTheme);
-
-  const searchInput = document.getElementById('search');
-  const videoCards = document.querySelectorAll('.video-card');
-  const categoryButtons = document.querySelectorAll('.category-btn');
-
-  // Menu toggle
-  const menuWrapper = document.getElementById('menuWrapper');
-  const menuToggleBtn = document.getElementById('menuToggle');
-  const menuPanel = document.getElementById('menuPanel');
-  function closeMenuPanel() {
-    menuPanel.classList.remove('open');
-    menuToggleBtn.setAttribute('aria-expanded', 'false');
-  }
-  menuToggleBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const willOpen = !menuPanel.classList.contains('open');
-    menuPanel.classList.toggle('open');
-    menuToggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-  });
-  document.addEventListener('click', (e) => {
-    if (!menuWrapper.contains(e.target)) closeMenuPanel();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenuPanel();
-  });
-
-
-  // Arama - başlık + gizli içerik (.md gövdesi, etiket, kategori)
-  searchInput.addEventListener('input', () => {
-    const query = searchInput.value.toLowerCase().trim();
-    videoCards.forEach(card => {
-      const title = card.querySelector('.video-title')?.textContent?.toLowerCase() || '';
-      const haystack = card.querySelector('.searchable-text')?.textContent?.toLowerCase() || '';
-      const match = title.includes(query) || haystack.includes(query);
-      card.style.display = match ? '' : 'none';
-    });
-  });
-
-  // Kategori filtreleme
-  categoryButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      categoryButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const category = btn.dataset.category;
-      videoCards.forEach(card => {
-        card.style.display = category === 'all' || card.dataset.category === category ? '' : 'none';
-      });
-      searchInput.value = '';
-    });
-  });
-
-  // Modal + Plyr integration
-  const modal = document.getElementById('playerModal');
-  const modalInner = document.getElementById('modalInner');
-  const modalClose = document.getElementById('modalClose');
-  const modalContent = document.getElementById('modalContent');
-  let plyrInstance = null;
-
-  function detectProvider(url) {
-    try {
-      const u = new URL(url, window.location.href);
-      const host = u.hostname.replace('www.', '');
-      const pathname = u.pathname;
-      const search = u.searchParams;
-
-      // YouTube variants
-      if (host.includes('youtube.com') || host.includes('youtu.be')) {
-        let id = '';
-        if (host.includes('youtu.be')) {
-          id = pathname.split('/')[1] || '';
-        } else if (pathname.startsWith('/embed/')) {
-          id = pathname.split('/embed/')[1].split('/')[0];
-        } else {
-          id = search.get('v') || '';
-        }
-        return id ? { type: 'youtube', id } : { type: 'unknown', src: url };
-      }
-
-      // Vimeo variants
-      if (host.includes('vimeo.com')) {
-        const match = pathname.match(/(?:video\/)?(\d+)/);
-        if (match && match[1]) return { type: 'vimeo', id: match[1] };
-        return { type: 'unknown', src: url };
-      }
-
-      // Direct media
-      if (/\.(mp4|webm|ogg|m3u8)(?:$|\?)/i.test(u.href)) {
-        return { type: 'html5', src: u.href };
-      }
-
-      return { type: 'unknown', src: url };
-    } catch (_) {
-      return { type: 'unknown', src: url };
-    }
-  }
-
-  function setModalSizeByAspect(width, height) {
-    const maxW = Math.floor(window.innerWidth * 0.9);
-    const maxH = Math.floor(window.innerHeight * 0.9);
-    let w = width;
-    let h = height;
-    const scale = Math.min(maxW / w, maxH / h, 1);
-    w = Math.floor(w * scale);
-    h = Math.floor(h * scale);
-    modalContent.style.width = w + 'px';
-    modalContent.style.height = h + 'px';
-  }
-
-  function openModalWithSource(url) {
-    // Cleanup previous
-    if (plyrInstance) {
-      try { plyrInstance.destroy(); } catch (_) { }
-      plyrInstance = null;
-    }
-    modalInner.innerHTML = '';
-
-    const info = detectProvider(url);
-
-    if (info.type === 'youtube' || info.type === 'vimeo') {
-      // Default 16:9 sizing when intrinsic is unknown
-      setModalSizeByAspect(1280, 720);
-      const wrapper = document.createElement('div');
-      wrapper.className = 'plyr__video-embed';
-      const iframe = document.createElement('iframe');
-      iframe.setAttribute('allowfullscreen', '');
-      iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
-      iframe.setAttribute('src', info.type === 'youtube'
-        ? `https://www.youtube.com/embed/${info.id}?autoplay=1&rel=0&modestbranding=1`
-        : `https://player.vimeo.com/video/${info.id}?autoplay=1`);
-      wrapper.appendChild(iframe);
-      modalInner.appendChild(wrapper);
-      plyrInstance = new Plyr(wrapper, { autoplay: true });
-    } else if (info.type === 'html5') {
-      const video = document.createElement('video');
-      video.setAttribute('controls', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('autoplay', '');
-      const source = document.createElement('source');
-      source.src = info.src;
-      // Try to infer type
-      if (/\.mp4(?:$|\?)/i.test(info.src)) source.type = 'video/mp4';
-      else if (/\.webm(?:$|\?)/i.test(info.src)) source.type = 'video/webm';
-      else if (/\.ogg(?:$|\?)/i.test(info.src)) source.type = 'video/ogg';
-      video.appendChild(source);
-      modalInner.appendChild(video);
-
-      // Size to intrinsic when metadata loads
-      video.addEventListener('loadedmetadata', () => {
-        const w = video.videoWidth || 1280;
-        const h = video.videoHeight || 720;
-        setModalSizeByAspect(w, h);
-      });
-      // Fallback size
-      setModalSizeByAspect(1280, 720);
-      plyrInstance = new Plyr(video, { autoplay: true });
-    } else {
-      // Unknown provider: fallback to iframe
-      setModalSizeByAspect(1280, 720);
-      const iframe = document.createElement('iframe');
-      iframe.src = url;
-      iframe.setAttribute('allowfullscreen', '');
-      iframe.style.width = '100%';
-      iframe.style.height = '100%';
-      iframe.style.border = '0';
-      modalInner.appendChild(iframe);
-    }
-
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
-  }
-
-  function closeModal() {
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-    if (plyrInstance) {
-      try { plyrInstance.destroy(); } catch (_) { }
-      plyrInstance = null;
-    }
-    modalInner.innerHTML = '';
-  }
-
-  modalClose.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
-  });
-
-  // Clicking on thumbnail opens modal
-  document.querySelectorAll('.video-card').forEach(card => {
-    const thumb = card.querySelector('.video-thumbnail');
-    const iframe = card.querySelector('iframe');
-    thumb.addEventListener('click', (e) => {
-      e.preventDefault();
-      const url = iframe.dataset.src || iframe.src || '';
-      if (url) openModalWithSource(url);
-    });
-  });
-</script>
-<script>
-  // Player dışı indirme butonlarını zorla indir
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".force-download").forEach(function (btn) {
-      btn.addEventListener("click", function (e) {
-        e.preventDefault(); // Yeni sekmeyi engelle
-        const url = this.href;
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = url.split('/').pop(); // Dosya adını otomatik al
-        document.body.appendChild(a);
-        a.click(); // İndirmeyi başlat
-        document.body.removeChild(a);
-      });
-    });
-  });
-</script>
-
-<!-- Blog Headers Rotator -->
-<script>
-// Blog Headers Rotator
+// Video Filter and Search Functionality
 document.addEventListener('DOMContentLoaded', function() {
-  const blogItems = document.querySelectorAll('.blog-header-item');
-  const dots = document.querySelectorAll('.rotator-dots .dot');
-  let currentIndex = 0;
-  let rotatorInterval;
-
-  function showBlogItem(index) {
-    // Hide all items
-    blogItems.forEach(item => item.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const filterButtons = document.querySelectorAll('#categoryFilter button');
+  const videoItems = document.querySelectorAll('.video-item');
+  const sortSelect = document.getElementById('sortSelect');
+  const videoCount = document.getElementById('videoCount');
+  const noResults = document.getElementById('noResults');
+  const videosGrid = document.getElementById('videosGrid');
+  
+  let currentCategory = 'all';
+  let currentSearch = '';
+  
+  // Search functionality
+  function performSearch() {
+    currentSearch = searchInput.value.toLowerCase();
+    filterVideos();
+  }
+  
+  // Filter functionality
+  function filterVideos() {
+    let visibleCount = 0;
     
-    // Show current item
-    blogItems[index].classList.add('active');
-    dots[index].classList.add('active');
+    videoItems.forEach(item => {
+      const itemCategories = item.getAttribute('data-categories');
+      const itemTitle = item.getAttribute('data-title');
+      const itemTags = item.getAttribute('data-tags');
+      
+      const matchesCategory = currentCategory === 'all' || itemCategories.includes(currentCategory);
+      const matchesSearch = currentSearch === '' || 
+                           itemTitle.includes(currentSearch) || 
+                           itemTags.includes(currentSearch);
+      
+      if (matchesCategory && matchesSearch) {
+        item.style.display = 'block';
+        item.style.animation = 'fadeIn 0.5s ease-in';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
     
-    currentIndex = index;
+    // Update video count
+    videoCount.textContent = `${visibleCount} video`;
+    
+    // Show/hide no results message
+    if (visibleCount === 0) {
+      noResults.style.display = 'block';
+      videosGrid.style.display = 'none';
+    } else {
+      noResults.style.display = 'none';
+      videosGrid.style.display = 'flex';
+    }
   }
-
-  function nextBlogItem() {
-    currentIndex = (currentIndex + 1) % blogItems.length;
-    showBlogItem(currentIndex);
+  
+  // Sort functionality
+  function sortVideos() {
+    const sortBy = sortSelect.value;
+    const videoArray = Array.from(videoItems);
+    
+    videoArray.sort((a, b) => {
+      if (sortBy === 'title') {
+        return a.getAttribute('data-title').localeCompare(b.getAttribute('data-title'));
+      } else if (sortBy === 'date') {
+        return b.getAttribute('data-date') - a.getAttribute('data-date');
+      } else if (sortBy === 'views') {
+        const aViews = parseInt(a.getAttribute('data-views')) || 0;
+        const bViews = parseInt(b.getAttribute('data-views')) || 0;
+        return bViews - aViews;
+      }
+      return 0;
+    });
+    
+    // Reorder DOM elements
+    const container = videosGrid;
+    videoArray.forEach(item => {
+      container.appendChild(item);
+    });
   }
-
-  function startRotator() {
-    rotatorInterval = setInterval(nextBlogItem, 4000); // 4 saniyede bir değişim
-  }
-
-  function stopRotator() {
-    clearInterval(rotatorInterval);
-  }
-
-  // Dot navigation
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      stopRotator();
-      showBlogItem(index);
-      setTimeout(startRotator, 6000); // 6 saniye bekleyip tekrar başlat
+  
+  // Event listeners
+  searchInput.addEventListener('input', performSearch);
+  searchBtn.addEventListener('click', performSearch);
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      currentCategory = this.getAttribute('data-category');
+      
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      filterVideos();
     });
   });
-
-  // Hover durumunda rotasyonu duraklat
-  const rotatorContainer = document.querySelector('.blog-headers-rotator');
-  if (rotatorContainer) {
-    rotatorContainer.addEventListener('mouseenter', stopRotator);
-    rotatorContainer.addEventListener('mouseleave', startRotator);
-  }
-
-  // Başlat
-  startRotator();
+  
+  // Category filter buttons from cards
+  document.querySelectorAll('.category-filter-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const category = this.getAttribute('data-category');
+      currentCategory = category;
+      
+      // Update active button in filter section
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      const targetButton = document.querySelector(`[data-category="${category}"]`);
+      if (targetButton) {
+        targetButton.classList.add('active');
+      }
+      
+      // Scroll to videos section
+      document.getElementById('featured-videos').scrollIntoView({ behavior: 'smooth' });
+      
+      filterVideos();
+    });
+  });
+  
+  sortSelect.addEventListener('change', sortVideos);
+  
+  // Clear filters function
+  window.clearFilters = function() {
+    searchInput.value = '';
+    currentSearch = '';
+    currentCategory = 'all';
+    
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    document.querySelector('[data-category="all"]').classList.add('active');
+    
+    sortSelect.value = 'title';
+    
+    filterVideos();
+    sortVideos();
+  };
+  
+  // Video Modal Functionality
+  const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+  const modalVideo = document.getElementById('modalVideo');
+  const modalTitle = document.getElementById('videoModalLabel');
+  
+  document.querySelectorAll('.play-video-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const videoUrl = this.getAttribute('data-video-url');
+      const videoTitle = this.getAttribute('data-video-title');
+      const videoThumbnail = this.getAttribute('data-video-thumbnail');
+      
+      if (videoUrl) {
+        modalVideo.src = videoUrl;
+        modalVideo.poster = videoThumbnail;
+        modalTitle.textContent = videoTitle;
+        videoModal.show();
+      } else {
+        alert('Video URL bulunamadı!');
+      }
+    });
+  });
+  
+  // Stop video when modal is closed
+  document.getElementById('videoModal').addEventListener('hidden.bs.modal', function () {
+    modalVideo.pause();
+    modalVideo.src = '';
+  });
 });
+
+// Add fadeIn animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  #videosGrid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .modal-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid var(--soft-border);
+    border-radius: 16px 16px 0 0;
+  }
+  
+  .modal-body {
+    padding: 0;
+  }
+  
+  .video-player-container {
+    border-radius: 0 0 16px 16px;
+  }
+`;
+document.head.appendChild(style);
 </script>

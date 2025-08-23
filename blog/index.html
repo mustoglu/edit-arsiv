@@ -5,677 +5,456 @@ pagination:
     enabled: true
 ---
 
-<style>
-.blog-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.blog-header {
-  text-align: center;
-  margin-bottom: 40px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid var(--border);
-}
-
-.blog-header h1 {
-  font-size: 2.5rem;
-  color: var(--text-primary);
-  margin-bottom: 10px;
-}
-
-.blog-header p {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-}
-
-.blog-navigation {
-  background-color: var(--bg-secondary);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 30px;
-  border: 1px solid var(--border);
-  top: 20px;
-  z-index: 100;
-}
-
-.blog-navigation h3 {
-  font-size: 1.2rem;
-  color: var(--text-primary);
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.blog-navigation .nav-links {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-.blog-navigation .nav-links li {
-  margin: 0;
-}
-
-.blog-navigation .nav-links a {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: var(--bg-card);
-  color: var(--text-primary);
-  text-decoration: none;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  transition: all 0.2s ease;
-  font-size: 0.9rem;
-}
-
-.blog-navigation .nav-links a:hover {
-  background-color: var(--accent);
-  color: white;
-  border-color: var(--accent);
-  transform: translateY(-1px);
-}
-
-.blog-post {
-  background-color: var(--bg-card);
-  border-radius: 12px;
-  padding: 30px;
-  margin-bottom: 30px;
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.blog-post h2 {
-  font-size: 1.8rem;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--accent);
-}
-
-.blog-post h3 {
-  font-size: 1.4rem;
-  color: var(--text-primary);
-  margin: 25px 0 15px 0;
-  padding-left: 15px;
-  border-left: 4px solid var(--accent);
-}
-
-.blog-post p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  margin-bottom: 15px;
-}
-
-.blog-post ul {
-  margin: 15px 0;
-  padding-left: 20px;
-}
-
-.blog-post li {
-  margin-bottom: 8px;
-  color: var(--text-secondary);
-}
-
-.blog-post strong {
-  color: var(--text-primary);
-}
-
-.blog-post .conclusion {
-  background-color: var(--bg-secondary);
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 25px;
-  border-left: 4px solid var(--accent);
-}
-
-.blog-post .conclusion h3 {
-  border-left: none;
-  padding-left: 0;
-  margin-top: 0;
-}
-
-.blog-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid var(--border);
-}
-
-.blog-date {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-
-.blog-categories {
-  display: flex;
-  gap: 8px;
-}
-
-.blog-category {
-  background-color: var(--accent);
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.blog-image {
-  width: 100%;
-  height: 300px;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 20px;
-  background-color: var(--bg-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-  font-size: 3rem;
-}
-
-.blog-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.back-to-top {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: var(--accent);
-  color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-}
-
-.back-to-top:hover {
-  background-color: #cc0000;
-  transform: translateY(-2px);
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .blog-container {
-    max-width: 800px;
-    padding: 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  .blog-container {
-    padding: 15px;
-  }
-  
-  .blog-post {
-    padding: 20px;
-  }
-  
-  .blog-header h1 {
-    font-size: 2rem;
-  }
-  
-  .blog-post h2 {
-    font-size: 1.5rem;
-  }
-  
-  .blog-post h3 {
-    font-size: 1.2rem;
-  }
-
-  .blog-navigation .nav-links {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .blog-navigation .nav-links a {
-    width: 100%;
-    text-align: center;
-    max-width: 300px;
-  }
-
-  .blog-image {
-    height: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .blog-container {
-    padding: 10px;
-  }
-  
-  .blog-post {
-    padding: 15px;
-  }
-  
-  .blog-header h1 {
-    font-size: 1.8rem;
-  }
-  
-  .blog-post h2 {
-    font-size: 1.3rem;
-  }
-  
-  .blog-post h3 {
-    font-size: 1.1rem;
-  }
-
-  .blog-meta {
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
-  .blog-image {
-    height: 150px;
-  }
-
-  .back-to-top {
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-  }
-}
-
-@media (max-width: 360px) {
-  .blog-container {
-    padding: 8px;
-  }
-  
-  .blog-post {
-    padding: 12px;
-  }
-  
-  .blog-header h1 {
-    font-size: 1.6rem;
-  }
-  
-  .blog-post h2 {
-    font-size: 1.2rem;
-  }
-  
-  .blog-post h3 {
-    font-size: 1rem;
-  }
-
-  .blog-image {
-    height: 120px;
-  }
-}
-</style>
-
-<div class="blog-container">
-  <div class="blog-header">
-    <h1>Video Düzenleme ve Sosyal Medya Stratejileri</h1>
-    <p>Profesyonel video içerik üretimi için kapsamlı rehberler ve ipuçları</p>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold mb-4">
+          Video Düzenleme ve Sosyal Medya Stratejileri
+        </h1>
+        <p class="lead mb-4">
+          Profesyonel video içerik üretimi için kapsamlı rehberler ve ipuçları
+        </p>
+      </div>
+    </div>
   </div>
+</section>
 
-  <!-- Blog Navigation Menu -->
-  <nav class="blog-navigation">
-    <h3>Blog Yazıları</h3>
-    <ul class="nav-links">
-      <li><a href="#video-editing-tips">Video Düzenleme İpuçları</a></li>
-      <li><a href="#social-media-strategies">Sosyal Medya Stratejileri</a></li>
-      <li><a href="#color-grading">Renk Düzenleme Teknikleri</a></li>
-      <li><a href="#audio-editing">Ses Düzenleme Rehberi</a></li>
-      <li><a href="#motion-graphics">Hareketli Grafikler</a></li>
-      <li><a href="#video-compression">Video Sıkıştırma</a></li>
-      <li><a href="#storytelling">Video Hikaye Anlatımı</a></li>
-      <li><a href="#trend-analysis">Trend Analizi</a></li>
-      <li><a href="#seo-optimization">SEO Optimizasyonu</a></li>
-      <li><a href="#content-calendar">İçerik Takvimi</a></li>
+<!-- Blog Navigation -->
+<section class="py-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="h5 mb-3 text-center">Blog Yazıları</h3>
+            <div class="d-flex flex-wrap gap-2 justify-content-center" id="blogNav">
+              <a href="#video-editing-tips" class="btn btn-outline-primary btn-sm">Video Düzenleme İpuçları</a>
+              <a href="#social-media-strategies" class="btn btn-outline-primary btn-sm">Sosyal Medya Stratejileri</a>
+              <a href="#color-grading" class="btn btn-outline-primary btn-sm">Renk Düzenleme Teknikleri</a>
+              <a href="#audio-editing" class="btn btn-outline-primary btn-sm">Ses Düzenleme Rehberi</a>
+              <a href="#motion-graphics" class="btn btn-outline-primary btn-sm">Hareketli Grafikler</a>
+              <a href="#video-compression" class="btn btn-outline-primary btn-sm">Video Sıkıştırma</a>
+              <a href="#storytelling" class="btn btn-outline-primary btn-sm">Video Hikaye Anlatımı</a>
+              <a href="#trend-analysis" class="btn btn-outline-primary btn-sm">Trend Analizi</a>
+              <a href="#seo-optimization" class="btn btn-outline-primary btn-sm">SEO Optimizasyonu</a>
+              <a href="#content-calendar" class="btn btn-outline-primary btn-sm">İçerik Takvimi</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Posts -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Blog Post 1 -->
+      <div class="col-lg-6" id="video-editing-tips">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>12 Haziran 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">Video Düzenleme</span>
+                <span class="badge bg-secondary">İpuçları</span>
+              </div>
+            </div>
+            
+            <div class="text-center mb-3">
+              <i class="bi bi-film display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">Video Düzenleme İpuçları: Profesyonel Görünüm İçin 10 Önemli Teknik</h2>
+            
+            <p class="card-text">
+              Video düzenleme, modern içerik üretiminin en önemli parçalarından biridir. İyi bir video edit, izleyicinin dikkatini çeker ve mesajınızı etkili bir şekilde iletir.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">Öne Çıkan Konular:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Doğru Yazılım Seçimi</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Proje Organizasyonu</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Kesme Teknikleri</li>
     </ul>
-  </nav>
-
-  <!-- Blog Yazısı 1 -->
-  <article class="blog-post" id="video-editing-tips">
-    <div class="blog-meta">
-      <span class="blog-date">12 Haziran 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">Video Düzenleme</span>
-        <span class="blog-category">İpuçları</span>
-      </div>
-    </div>
-    
-    <div class="blog-image">🎬</div>
-    
-    <h2>Video Düzenleme İpuçları: Profesyonel Görünüm İçin 10 Önemli Teknik</h2>
-    
-    <p>Video düzenleme, modern içerik üretiminin en önemli parçalarından biridir. İyi bir video edit, izleyicinin dikkatini çeker ve mesajınızı etkili bir şekilde iletir. Bu yazıda, video düzenleme sürecinde profesyonel sonuçlar elde etmek için uygulamanız gereken temel teknikleri ve ipuçlarını paylaşacağım.</p>
-
-    <h3>1. Doğru Yazılım Seçimi</h3>
-    <p>Video düzenleme yazılımı seçerken, projenizin ihtiyaçlarını ve bütçenizi göz önünde bulundurun. Adobe Premiere Pro, Final Cut Pro, DaVinci Resolve gibi profesyonel yazılımlar yanında, iMovie, OpenShot gibi ücretsiz alternatifler de mevcuttur.</p>
-
-    <h3>2. Proje Organizasyonu</h3>
-    <p>Düzenli bir çalışma alanı oluşturun. Dosyalarınızı klasörlere ayırın ve isimlendirme kuralları belirleyin. Bu, proje üzerinde çalışırken zaman kazandırır.</p>
-
-    <h3>3. Kesme Teknikleri</h3>
-    <p>Kesme işlemlerinde dikkat edilmesi gereken noktalar:</p>
-    <ul>
-      <li><strong>Jump Cut</strong>: Ani geçişler için kullanın</li>
-      <li><strong>Cross Cut</strong>: Paralel olayları göstermek için</li>
-      <li><strong>Match Cut</strong>: Görsel uyumu sağlayan geçişler</li>
-    </ul>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>Video düzenleme, sürekli öğrenme gerektiren bir süreçtir. Bu ipuçlarını uygulayarak, daha profesyonel ve etkili videolar oluşturabilirsiniz.</p>
+            </div>
     </div>
   </article>
-
-  <!-- Blog Yazısı 2 -->
-  <article class="blog-post" id="social-media-strategies">
-    <div class="blog-meta">
-      <span class="blog-date">15 Haziran 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">Sosyal Medya</span>
-        <span class="blog-category">Strateji</span>
+      </div>
+      
+      <!-- Blog Post 2 -->
+      <div class="col-lg-6" id="social-media-strategies">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>15 Haziran 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">Sosyal Medya</span>
+                <span class="badge bg-secondary">Strateji</span>
       </div>
     </div>
     
-    <div class="blog-image">📱</div>
-    
-    <h2>Sosyal Medya Video Stratejileri: Platformlara Özel İçerik Üretimi</h2>
-    
-    <p>Sosyal medya platformları, video içeriklerin başarısını belirleyen farklı algoritmalar ve kullanıcı davranışlarına sahiptir. Bu yazıda, her platform için optimize edilmiş video içerik stratejilerini inceleyeceğiz.</p>
-
-    <h3>Instagram Reels ve Stories</h3>
-    <p>Instagram'da başarılı olmak için dikey format, kısa süre ve trend müzikler kullanın. Etkileşimi artırmak için hashtag kullanımı ve etiketleme önemlidir.</p>
-
-    <h3>TikTok İçerik Stratejisi</h3>
-    <p>TikTok'un algoritması için trend takibi, hızlı başlangıç ve kullanıcı etkileşimi önemlidir. Duet ve stitch özelliklerini kullanarak içeriğinizi yayın.</p>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>Her sosyal medya platformu, kendine özgü algoritma ve kullanıcı davranışlarına sahiptir. Platformlara özel içerik üretimi, başarılı bir sosyal medya stratejisinin temelidir.</p>
+            <div class="text-center mb-3">
+              <i class="bi bi-phone display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">Sosyal Medya Video Stratejileri: Platformlara Özel İçerik Üretimi</h2>
+            
+            <p class="card-text">
+              Sosyal medya platformları, video içeriklerin başarısını belirleyen farklı algoritmalar ve kullanıcı davranışlarına sahiptir.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">Platform Stratejileri:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-instagram me-2 text-danger"></i>Instagram Reels ve Stories</li>
+                <li><i class="bi bi-music-note me-2 text-dark"></i>TikTok İçerik Stratejisi</li>
+                <li><i class="bi bi-youtube me-2 text-danger"></i>YouTube Optimizasyonu</li>
+              </ul>
+            </div>
     </div>
   </article>
-
-  <!-- Blog Yazısı 3 -->
-  <article class="blog-post" id="color-grading">
-    <div class="blog-meta">
-      <span class="blog-date">18 Haziran 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">Renk Düzenleme</span>
-        <span class="blog-category">Teknik</span>
+      </div>
+      
+      <!-- Blog Post 3 -->
+      <div class="col-lg-6" id="color-grading">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>18 Haziran 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">Renk Düzenleme</span>
+                <span class="badge bg-secondary">Teknik</span>
       </div>
     </div>
     
-    <div class="blog-image">🎨</div>
-    
-    <h2>Renk Düzenleme Teknikleri: Profesyonel Görsel Kalite</h2>
-    
-    <p>Renk düzenleme, videonuzun profesyonel görünmesini sağlayan en önemli faktörlerden biridir. Doğru renk paleti ve ton ayarları, izleyici deneyimini önemli ölçüde artırır.</p>
-
-    <h3>White Balance Ayarları</h3>
-    <p>Çekim sırasında doğru white balance ayarları yapmak, post-production sürecini kolaylaştırır. Kelvin değerlerini doğru kullanarak doğal renkler elde edin.</p>
-
-    <h3>LUT Kullanımı</h3>
-    <p>Look-Up Table (LUT) dosyaları, tutarlı renk stilleri oluşturmanıza yardımcı olur. Profesyonel projelerde özel LUT'lar geliştirerek marka kimliğinizi güçlendirin.</p>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>Renk düzenleme, videonuzun duygusal etkisini artıran güçlü bir araçtır. Doğru teknikleri kullanarak izleyicilerinizi etkileyen görsel deneyimler yaratın.</p>
+            <div class="text-center mb-3">
+              <i class="bi bi-palette display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">Renk Düzenleme Teknikleri: Profesyonel Görsel Kalite</h2>
+            
+            <p class="card-text">
+              Renk düzenleme, videonuzun profesyonel görünmesini sağlayan en önemli faktörlerden biridir. Doğru renk paleti ve ton ayarları, izleyici deneyimini önemli ölçüde artırır.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">Teknikler:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-check-circle me-2 text-success"></i>White Balance Ayarları</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>LUT Kullanımı</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Renk Paleti Seçimi</li>
+              </ul>
+            </div>
     </div>
   </article>
-
-  <!-- Blog Yazısı 4 -->
-  <article class="blog-post" id="audio-editing">
-    <div class="blog-meta">
-      <span class="blog-date">20 Haziran 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">Ses Düzenleme</span>
-        <span class="blog-category">Kalite</span>
+      </div>
+      
+      <!-- Blog Post 4 -->
+      <div class="col-lg-6" id="audio-editing">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>20 Haziran 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">Ses Düzenleme</span>
+                <span class="badge bg-secondary">Kalite</span>
       </div>
     </div>
     
-    <div class="blog-image">🎵</div>
-    
-    <h2>Ses Düzenleme Rehberi: Kaliteli Audio İçin Temel Teknikler</h2>
-    
-    <p>Ses, video kadar önemlidir ve hatta bazen daha kritik olabilir. İyi bir ses düzenleme, izleyici deneyimini önemli ölçüde artırır.</p>
-
-    <h3>Gürültü Azaltma</h3>
-    <p>Çekim sırasında oluşan arka plan gürültüsünü azaltmak için modern ses düzenleme yazılımlarının gelişmiş filtrelerini kullanın.</p>
-
-    <h3>Ses Seviyesi Normalizasyonu</h3>
-    <p>Tüm ses öğelerinin tutarlı seviyede olmasını sağlayın. Dialogue, müzik ve efektler arasında denge kurun.</p>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>Profesyonel ses düzenleme, videonuzun kalitesini artıran en önemli faktörlerden biridir. Bu teknikleri uygulayarak izleyicilerinizi etkileyen içerikler oluşturun.</p>
+            <div class="text-center mb-3">
+              <i class="bi bi-music-note-beamed display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">Ses Düzenleme Rehberi: Kaliteli Audio İçin Temel Teknikler</h2>
+            
+            <p class="card-text">
+              Ses, video kadar önemlidir ve hatta bazen daha kritik olabilir. İyi bir ses düzenleme, izleyici deneyimini önemli ölçüde artırır.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">Ses Teknikleri:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Gürültü Azaltma</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Ses Seviyesi Normalizasyonu</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Ekolayzır Kullanımı</li>
+              </ul>
+            </div>
     </div>
   </article>
-
-  <!-- Blog Yazısı 5 -->
-  <article class="blog-post" id="motion-graphics">
-    <div class="blog-meta">
-      <span class="blog-date">23 Haziran 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">Hareketli Grafikler</span>
-        <span class="blog-category">Animasyon</span>
+      </div>
+      
+      <!-- Blog Post 5 -->
+      <div class="col-lg-6" id="motion-graphics">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>23 Haziran 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">Hareketli Grafikler</span>
+                <span class="badge bg-secondary">Animasyon</span>
       </div>
     </div>
     
-    <div class="blog-image">✨</div>
-    
-    <h2>Hareketli Grafikler: Dinamik İçerik Üretimi</h2>
-    
-    <p>Hareketli grafikler, video içeriklerinizi daha etkileyici hale getiren güçlü araçlardır. Doğru kullanıldığında izleyici dikkatini çeker ve mesajınızı güçlendirir.</p>
-
-    <h3>After Effects Kullanımı</h3>
-    <p>Adobe After Effects, hareketli grafik üretimi için endüstri standardıdır. Temel animasyon prensiplerini öğrenerek etkileyici içerikler oluşturun.</p>
-
-    <h3>Animasyon Prensipleri</h3>
-    <p>Easing, timing ve spacing gibi temel animasyon prensiplerini uygulayarak doğal ve akıcı hareketler elde edin.</p>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>Hareketli grafikler, video içeriklerinizi profesyonel seviyeye taşıyan önemli bir araçtır. Bu teknikleri öğrenerek daha etkileyici içerikler üretebilirsiniz.</p>
+            <div class="text-center mb-3">
+              <i class="bi bi-stars display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">Hareketli Grafikler: Dinamik İçerik Üretimi</h2>
+            
+            <p class="card-text">
+              Hareketli grafikler, video içeriklerinizi daha etkileyici hale getiren güçlü araçlardır. Doğru kullanıldığında izleyici dikkatini çeker ve mesajınızı güçlendirir.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">Animasyon Teknikleri:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-check-circle me-2 text-success"></i>After Effects Kullanımı</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Animasyon Prensipleri</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Motion Design</li>
+              </ul>
+            </div>
     </div>
   </article>
-
-  <!-- Blog Yazısı 6 -->
-  <article class="blog-post" id="video-compression">
-    <div class="blog-meta">
-      <span class="blog-date">26 Haziran 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">Video Sıkıştırma</span>
-        <span class="blog-category">Optimizasyon</span>
+      </div>
+      
+      <!-- Blog Post 6 -->
+      <div class="col-lg-6" id="video-compression">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>26 Haziran 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">Video Sıkıştırma</span>
+                <span class="badge bg-secondary">Optimizasyon</span>
       </div>
     </div>
     
-    <div class="blog-image">📦</div>
-    
-    <h2>Video Sıkıştırma: Kalite ve Boyut Dengesi</h2>
-    
-    <p>Video sıkıştırma, içerik dağıtımında kritik öneme sahiptir. Doğru codec ve bitrate ayarları ile kaliteyi koruyarak dosya boyutunu optimize edin.</p>
-
-    <h3>Codec Seçimi</h3>
-    <p>H.264, H.265 ve AV1 gibi modern codec'ler arasından projenizin ihtiyaçlarına en uygun olanı seçin. Her codec'in kendine özgü avantajları vardır.</p>
-
-    <h3>Bitrate Optimizasyonu</h3>
-    <p>Hedef platform ve cihaz için optimal bitrate değerlerini belirleyin. Çok düşük bitrate kalite kaybına, çok yüksek bitrate ise gereksiz büyük dosyalara neden olur.</p>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>Video sıkıştırma, modern içerik dağıtımının vazgeçilmez bir parçasıdır. Doğru teknikleri kullanarak kaliteyi koruyarak optimize edilmiş dosyalar oluşturun.</p>
+            <div class="text-center mb-3">
+              <i class="bi bi-box display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">Video Sıkıştırma: Kalite ve Boyut Dengesi</h2>
+            
+            <p class="card-text">
+              Video sıkıştırma, içerik dağıtımında kritik öneme sahiptir. Doğru codec ve bitrate ayarları ile kaliteyi koruyarak dosya boyutunu optimize edin.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">Optimizasyon Teknikleri:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Codec Seçimi</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Bitrate Optimizasyonu</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Platform Uyumluluğu</li>
+              </ul>
+            </div>
     </div>
   </article>
-
-  <!-- Blog Yazısı 7 -->
-  <article class="blog-post" id="storytelling">
-    <div class="blog-meta">
-      <span class="blog-date">21 Temmuz 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">Hikaye Anlatımı</span>
-        <span class="blog-category">Kreatif</span>
+      </div>
+      
+      <!-- Blog Post 7 -->
+      <div class="col-lg-6" id="storytelling">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>21 Temmuz 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">Hikaye Anlatımı</span>
+                <span class="badge bg-secondary">Kreatif</span>
       </div>
     </div>
     
-    <div class="blog-image">📖</div>
-    
-    <h2>Video Hikaye Anlatımı: İzleyiciyi Etkileme Sanatı</h2>
-    
-    <p>Güçlü bir hikaye, video içeriğinizin başarısını belirleyen en önemli faktördür. İyi bir hikaye anlatımı, izleyicileri ekrana kilitler ve mesajınızı unutulmaz kılar.</p>
-
-    <h3>Hikaye Yapısı</h3>
-    <p>Klasik üç perdelik yapıyı (giriş, gelişme, sonuç) kullanarak izleyici ilgisini baştan sona koruyun. Her sahnenin amacı olmalı ve hikayeyi ileri taşımalıdır.</p>
-
-    <h3>Karakter Gelişimi</h3>
-    <p>İzleyicilerin empati kurabileceği karakterler oluşturun. Karakterlerin yaşadığı değişim ve gelişim, hikayenin etkisini artırır.</p>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>Video hikaye anlatımı, teknik beceriler kadar yaratıcı düşünme gerektiren bir sanattır. Bu prensipleri uygulayarak izleyicilerinizi etkileyen içerikler üretebilirsiniz.</p>
+            <div class="text-center mb-3">
+              <i class="bi bi-book display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">Video Hikaye Anlatımı: İzleyiciyi Etkileme Sanatı</h2>
+            
+            <p class="card-text">
+              Güçlü bir hikaye, video içeriğinizin başarısını belirleyen en önemli faktördür. İyi bir hikaye anlatımı, izleyicileri ekrana kilitler ve mesajınızı unutulmaz kılar.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">Hikaye Teknikleri:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Hikaye Yapısı</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Karakter Gelişimi</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Duygusal Bağlantı</li>
+              </ul>
+            </div>
     </div>
   </article>
-
-  <!-- Blog Yazısı 8 -->
-  <article class="blog-post" id="trend-analysis">
-    <div class="blog-meta">
-      <span class="blog-date">28 Temmuz 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">Trend Analizi</span>
-        <span class="blog-category">Strateji</span>
+      </div>
+      
+      <!-- Blog Post 8 -->
+      <div class="col-lg-6" id="trend-analysis">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>28 Temmuz 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">Trend Analizi</span>
+                <span class="badge bg-secondary">Strateji</span>
       </div>
     </div>
     
-    <div class="blog-image">📊</div>
-    
-    <h2>Trend Analizi: Güncel İçerik Üretimi İçin Rehber</h2>
-    
-    <p>Trendleri takip etmek ve analiz etmek, başarılı içerik üretiminin temelidir. Güncel konular ve popüler formatlar, içeriğinizin görünürlüğünü artırır.</p>
-
-    <h3>Trend Takip Araçları</h3>
-    <p>Google Trends, Twitter Analytics ve TikTok Creative Center gibi araçları kullanarak güncel trendleri takip edin. Bu araçlar size değerli içgörüler sağlar.</p>
-
-    <h3>Trend Uyarlama</h3>
-    <p>Popüler trendleri kendi içerik stilinize uyarlayın. Sadece taklit etmeyin, trendi yaratıcı bir şekilde yeniden yorumlayın.</p>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>Trend analizi, içerik üretiminde rekabet avantajı sağlayan önemli bir stratejidir. Güncel trendleri takip ederek içeriklerinizi optimize edin.</p>
+            <div class="text-center mb-3">
+              <i class="bi bi-graph-up display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">Trend Analizi: Güncel İçerik Üretimi İçin Rehber</h2>
+            
+            <p class="card-text">
+              Trendleri takip etmek ve analiz etmek, başarılı içerik üretiminin temelidir. Güncel konular ve popüler formatlar, içeriğinizin görünürlüğünü artırır.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">Analiz Araçları:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Trend Takip Araçları</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Trend Uyarlama</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Pazar Analizi</li>
+              </ul>
+            </div>
     </div>
   </article>
-
-  <!-- Blog Yazısı 9 -->
-  <article class="blog-post" id="seo-optimization">
-    <div class="blog-meta">
-      <span class="blog-date">30 Temmuz 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">SEO</span>
-        <span class="blog-category">Optimizasyon</span>
+      </div>
+      
+      <!-- Blog Post 9 -->
+      <div class="col-lg-6" id="seo-optimization">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>30 Temmuz 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">SEO</span>
+                <span class="badge bg-secondary">Optimizasyon</span>
       </div>
     </div>
     
-    <div class="blog-image">🔍</div>
-    
-    <h2>Video SEO Optimizasyonu: Görünürlük Artırma Teknikleri</h2>
-    
-    <p>Video SEO, içeriğinizin arama motorlarında daha iyi sıralanmasını sağlayan önemli bir faktördür. Doğru optimizasyon teknikleri ile organik trafiğinizi artırın.</p>
-
-    <h3>Anahtar Kelime Araştırması</h3>
-    <p>Hedef kitlenizin aradığı anahtar kelimeleri belirleyin. Uzun kuyruk anahtar kelimeler genellikle daha az rekabetçi ve daha yüksek dönüşüm oranlarına sahiptir.</p>
-
-    <h3>Video Açıklamaları</h3>
-    <p>Video açıklamalarında anahtar kelimeleri doğal bir şekilde kullanın. Açıklamalar hem arama motorları hem de izleyiciler için değerli bilgiler içermelidir.</p>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>Video SEO, içerik stratejinizin önemli bir parçasıdır. Bu optimizasyon tekniklerini uygulayarak içeriğinizin görünürlüğünü artırabilirsiniz.</p>
+            <div class="text-center mb-3">
+              <i class="bi bi-search display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">Video SEO Optimizasyonu: Görünürlük Artırma Teknikleri</h2>
+            
+            <p class="card-text">
+              Video SEO, içeriğinizin arama motorlarında daha iyi sıralanmasını sağlayan önemli bir faktördür. Doğru optimizasyon teknikleri ile organik trafiğinizi artırın.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">SEO Teknikleri:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Anahtar Kelime Araştırması</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Video Açıklamaları</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Meta Veri Optimizasyonu</li>
+              </ul>
+            </div>
     </div>
   </article>
-
-  <!-- Blog Yazısı 10 -->
-  <article class="blog-post" id="content-calendar">
-    <div class="blog-meta">
-      <span class="blog-date">15 Ağustos 2025</span>
-      <div class="blog-categories">
-        <span class="blog-category">İçerik Planlama</span>
-        <span class="blog-category">Organizasyon</span>
+      </div>
+      
+      <!-- Blog Post 10 -->
+      <div class="col-lg-6" id="content-calendar">
+        <article class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>15 Ağustos 2025
+              </span>
+              <div class="d-flex gap-1">
+                <span class="badge bg-primary">İçerik Planlama</span>
+                <span class="badge bg-secondary">Organizasyon</span>
       </div>
     </div>
     
-    <div class="blog-image">📅</div>
-    
-    <h2>İçerik Takvimi: Düzenli Üretim İçin Stratejik Planlama</h2>
-    
-    <p>Düzenli içerik üretimi, sosyal medya başarınızın anahtarıdır. İyi planlanmış bir içerik takvimi ile tutarlı ve kaliteli içerik üretimini sürdürün.</p>
-
-    <h3>Haftalık Planlama</h3>
-    <p>Her hafta için farklı içerik türleri planlayın. Eğitici, eğlenceli ve bilgilendirici içerikler arasında denge kurun.</p>
-
-    <h3>İçerik Çeşitliliği</h3>
-    <p>Tek bir format veya konuya takılı kalmayın. Video, infografik, blog yazıları ve canlı yayınlar gibi farklı içerik türlerini kullanın.</p>
-
-    <div class="conclusion">
-      <h3>Sonuç</h3>
-      <p>İçerik takvimi, başarılı bir dijital pazarlama stratejisinin temelidir. Düzenli planlama ile izleyicilerinizin beklentilerini karşılayan sürekli içerik üretimi sağlayın.</p>
+            <div class="text-center mb-3">
+              <i class="bi bi-calendar-week display-1 text-primary opacity-25"></i>
+            </div>
+            
+            <h2 class="h4 mb-3">İçerik Takvimi: Düzenli Üretim İçin Stratejik Planlama</h2>
+            
+            <p class="card-text">
+              Düzenli içerik üretimi, sosyal medya başarınızın anahtarıdır. İyi planlanmış bir içerik takvimi ile tutarlı ve kaliteli içerik üretimini sürdürün.
+            </p>
+            
+            <div class="mt-3">
+              <h5 class="h6 mb-2">Planlama Stratejileri:</h5>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Haftalık Planlama</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>İçerik Çeşitliliği</li>
+                <li><i class="bi bi-check-circle me-2 text-success"></i>Takvim Yönetimi</li>
+              </ul>
+            </div>
     </div>
   </article>
 </div>
+    </div>
+  </div>
+</section>
 
 <!-- Back to Top Button -->
-<div class="back-to-top" onclick="scrollToTop()" title="Yukarı Çık">
-  ↑
-</div>
+<button class="btn btn-primary position-fixed bottom-0 end-0 m-3 rounded-circle" id="backToTop" style="width: 50px; height: 50px; z-index: 1000; display: none;">
+  <i class="bi bi-arrow-up"></i>
+</button>
 
 <script>
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-}
-
-// Show/hide back to top button based on scroll position
-window.addEventListener('scroll', function() {
-  const backToTop = document.querySelector('.back-to-top');
-  if (window.pageYOffset > 300) {
-    backToTop.style.display = 'flex';
-  } else {
-    backToTop.style.display = 'none';
-  }
-});
-
-// Smooth scroll to anchor links
+// Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
-  // Check if there's a hash in the URL
-  if (window.location.hash) {
-    const targetElement = document.querySelector(window.location.hash);
-    if (targetElement) {
-      setTimeout(() => {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
-  }
-
-  // Add smooth scrolling to all navigation links
-  document.querySelectorAll('.blog-navigation a').forEach(link => {
+  const navLinks = document.querySelectorAll('#blogNav a');
+  
+  navLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const targetId = this.getAttribute('href');
       const targetElement = document.querySelector(targetId);
+      
       if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
       }
+    });
+  });
+  
+  // Back to top functionality
+  const backToTopBtn = document.getElementById('backToTop');
+  
+  window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 300) {
+      backToTopBtn.style.display = 'block';
+    } else {
+      backToTopBtn.style.display = 'none';
+    }
+  });
+  
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
     });
   });
 });

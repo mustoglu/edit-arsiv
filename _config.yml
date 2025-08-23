@@ -2,6 +2,7 @@
 name: 'Edit Arşiv'
 language: "tr"
 description: 'Videolarınızın ihtiyacı olan kesitler... '
+url: 'https://editarsiv.com'
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon/favicon.ico'
 baseurl: ''

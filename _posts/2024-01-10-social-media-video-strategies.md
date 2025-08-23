@@ -1,7 +1,7 @@
 ---
 layout: app
 title: "Sosyal Medya Video Stratejileri: Platformlara Özel İçerik Üretimi"
-date: 2024-01-10
+date: 2025-07-10
 categories: ["Sosyal Medya", "Strateji"]
 excerpt: "Farklı sosyal medya platformları için optimize edilmiş video içerik stratejileri ve platformlara özel içerik üretim teknikleri."
 image: "/assets/images/thumbnail/social-media.jpg"
