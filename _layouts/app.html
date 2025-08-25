@@ -547,23 +547,17 @@
               Haberler
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarNewsDropdown" style="min-width: 220px;">
+              <li>
               <li class="px-3 pt-2 pb-1">
                 <span class="fw-semibold small text-muted d-block mb-2" style="font-size: 0.95rem;">Son Haberler</span>
-          
-                {% assign latest_news = site.pages 
-                   | where_exp: "p", "p.layout == 'app'" 
-                   | where_exp: "p", "p.url contains '/news/' or p.url contains '/news'" 
-                   | sort: "date" 
-                   | reverse 
-                   | slice: 0,3 %}
-          
+                {% assign latest_news = site.pages | where_exp: "p", "p.layout == 'app'" | where_exp: "p", "p.url contains '/news/' or p.url contains '/news'" | sort: "date" | reverse | slice: 0,3 %}
+
                 {% for news in latest_news %}
-                  <a class="dropdown-item py-1 px-2 mb-1" href="{{ news.url | relative_url }}"
-                     style="font-size: 0.92rem;">
-                    {{ news.title | truncate: 40 }}
-                  </a>
+                <a class="dropdown-item py-1 px-2 mb-1" href="{{ news.url | relative_url }}"
+                  style="font-size: 0.92rem;">
+                  {{ news.title | truncate: 40 }}
+                </a>
                 {% endfor %}
-          
                 <div class="d-grid mt-2">
                   <a href="{{ site.baseurl }}/news" class="btn btn-outline-primary btn-sm" style="font-size: 0.92rem;">
                     Tüm Haberler
@@ -572,7 +566,6 @@
               </li>
             </ul>
           </li>
-          
 
 
 
