@@ -550,8 +550,8 @@
               <li>
               <li class="px-3 pt-2 pb-1">
                 <span class="fw-semibold small text-muted d-block mb-2" style="font-size: 0.95rem;">Son Haberler</span>
-                {% assign latest_news = site.pages | where_exp: "p", "p.layout == 'app'" | where_exp: "p", "p.url
-                contains '/news/' or p.url contains '/news'" | sort: "date" | reverse | slice: 0,3 %}
+                {% assign latest_news = site.pages | where_exp: "p", "p.layout == 'app'" | where_exp: "p", "p.url contains '/news/' or p.url contains '/news'" | sort: "date" | reverse | slice: 0,3 %}
+
                 {% for news in latest_news %}
                 <a class="dropdown-item py-1 px-2 mb-1" href="{{ news.url | relative_url }}"
                   style="font-size: 0.92rem;">
