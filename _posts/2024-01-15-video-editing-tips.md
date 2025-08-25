@@ -9,7 +9,7 @@ image: "/assets/images/thumbnail/video-editing.jpg"
 
 # Video Düzenleme İpuçları: Profesyonel Görünüm İçin 10 Önemli Teknik
 
-Video düzenleme, modern içerik üretiminin en önemli parçalarından biridir. İyi bir video edit, izleyicinin dikkatini çeker ve mesajınızı etkili bir şekilde iletir. Bu yazıda, video düzenleme sürecinde profesyonel sonuçlar elde etmek için uygulamanız gereken temel teknikleri ve ipuçlarını paylaşacağım.
+Video düzenleme modern içerik üretiminin en önemli parçalarından biridir. İyi bir video edit, izleyicinin dikkatini çeker ve mesajınızı etkili bir şekilde iletir. Bu yazıda, video düzenleme sürecinde profesyonel sonuçlar elde etmek için uygulamanız gereken temel teknikleri ve ipuçlarını paylaşacağım.
 
 ## 1. Doğru Yazılım Seçimi
 
