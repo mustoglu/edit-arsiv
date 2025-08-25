@@ -74,9 +74,8 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
     <div class="row mb-4">
       <div class="col-12">
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <div>
-            <h2 class="h3 mb-2">Tüm Videolar</h2>
-            <p class="text-muted mb-0">Video arşivimizdeki tüm video kesitlerini keşfedin</p>
+          <div class="d-flex flex-column flex-md-row align-items-md-end gap-2">
+            <h2 class="h3 mb-2 mb-md-0 me-md-2">Tüm Videolar</h2>
           </div>
           <div class="d-flex align-items-center gap-3">
             <span class="text-muted" id="videoCount">{{ site.videos.size }} video</span>
@@ -93,7 +92,7 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
     <div class="row g-4" id="videosGrid">
       {% assign all_videos = site.videos | sort: 'title' %}
       {% for video in all_videos %}
-      <div class="col-lg-4 col-md-6 video-item" 
+      <div class="col-lg-3 col-md-6 video-item"
            data-categories="{{ video.categories | join: ' ' }}"
            data-title="{{ video.title | downcase }}"
            data-tags="{{ video.tags | join: ' ' | downcase }}"
@@ -105,7 +104,6 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
                loading="lazy">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{ video.title }}</h5>
-            <p class="card-text flex-grow-1">{{ video.excerpt | default: "Video kesiti" | truncate: 100 }}</p>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <div class="d-flex gap-2">
                 {% if video.categories %}
@@ -472,21 +470,26 @@ document.addEventListener('DOMContentLoaded', function() {
   const modalTitle = document.getElementById('videoModalLabel');
   
   document.querySelectorAll('.play-video-btn').forEach(button => {
-    button.addEventListener('click', function() {
-      const videoUrl = this.getAttribute('data-video-url');
-      const videoTitle = this.getAttribute('data-video-title');
-      const videoThumbnail = this.getAttribute('data-video-thumbnail');
-      
-      if (videoUrl) {
-        modalVideo.src = videoUrl;
-        modalVideo.poster = videoThumbnail;
-        modalTitle.textContent = videoTitle;
-        videoModal.show();
-      } else {
-        alert('Video URL bulunamadı!');
-      }
-    });
+  button.addEventListener('click', function() {
+    const videoUrl = this.getAttribute('data-video-url');
+    const videoTitle = this.getAttribute('data-video-title');
+    const videoThumbnail = this.getAttribute('data-video-thumbnail');
+    
+    if (videoUrl) {
+      modalVideo.src = videoUrl;
+      modalVideo.poster = videoThumbnail;
+      modalTitle.textContent = videoTitle;
+      videoModal.show();
+
+      // 🔹 Modal açılınca video oynat
+      modalVideo.play().catch(err => {
+        console.log("Otomatik oynatma engellendi, kullanıcı etkileşimi gerekebilir:", err);
+      });
+    } else {
+      alert('Video URL bulunamadı!');
+    }
   });
+});
   
   // Stop video when modal is closed
   document.getElementById('videoModal').addEventListener('hidden.bs.modal', function () {
