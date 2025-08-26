@@ -1,25 +1,16 @@
 ---
-layout: default
+layout: app
 permalink: "/404.html"
 ---
 
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
 
-<div class="container">
-  <h1>404</h1>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
+<div class="container my-5 py-5 d-flex flex-column align-items-center justify-content-center" style="min-height:60vh;">
+  <h1 class="display-1 fw-bold text-primary mb-4">404</h1>
+  <p class="lead mb-4">
+    <strong>Bahsettiğin şey bizde yok gibi ama istersen sunduğumuz olanaklardan faydalanabilirsin :(</strong>
+  </p>
+  <a href="{{ site.baseurl }}/" class="btn btn-primary btn-lg">
+    <i class="bi bi-house-door-fill me-2"></i>Aramıza Geri Dön
+  </a>
 </div>

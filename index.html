@@ -184,6 +184,80 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
   </div>
 </section>
 
+<section class="py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12">
+        <h2 class="h3 mb-3">Güncel Haberler</h2>
+        <p class="text-muted">Sosyal medya ve teknoloji dünyasından en son haberler</p>
+        <a href="/news" class="btn btn-outline-primary btn-sm">Tüm Haberler</a>
+      </div>
+    </div>
+    <div class="row g-4">
+      {% assign sorted_news = site.posts | sort: "date" | reverse %}
+      {% for post in sorted_news limit:4 %}
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm news-card">
+          <a href="{{ post.url }}" class="d-block">
+            <img src="{{ post.thumbnail }}" class="news-thumb-img mx-auto mt-3 mb-2" alt="{{ post.title }}">
+          </a>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title mb-2">
+              <a href="{{ post.url }}" class="stretched-link text-decoration-none text-dark">{{ post.title }}</a>
+            </h5>
+            <p class="card-text text-muted small mb-2">
+              {{ post.excerpt | strip_html | truncate: 80 }}
+            </p>
+            <div class="mt-auto d-flex flex-column align-items-start gap-2">
+              <time class="text-secondary small mb-2" datetime="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: "%d %B %Y" }}
+              </time>
+              <a href="{{ post.url }}" class="btn btn-outline-primary btn-sm">Devamını Oku</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<style>
+.news-card {
+  border-radius: 14px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  background: var(--soft-bg-card, #fff);
+}
+.news-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  transform: translateY(-4px) scale(1.02);
+}
+.news-card .card-title a {
+  font-weight: 600;
+  font-size: 1.08rem;
+  color: var(--soft-text-primary, #334155);
+}
+.news-card .card-title a:hover {
+  color: var(--bs-primary, #6366f1);
+}
+.news-thumb-img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #f1f5f9;
+  display: block;
+}
+.news-thumb-placeholder {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  background: #e2e8f0;
+  display: block;
+}
+</style>
+  
+
+
 <!-- Categories Section -->
 <section class="py-5 bg-light">
   <div class="container">
@@ -243,34 +317,168 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
   </div>
 </section>
 
-<!-- Latest Blog Posts -->
+<!-- Latest Blog Posts (Görünüm iyileştirildi, ikonlar eklendi) -->
 <section class="py-5">
   <div class="container">
     <div class="row mb-4">
-      <div class="col-12">
-        <h2 class="h3 mb-3">Son Blog Yazıları</h2>
+      <div class="col-12 text-center">
+        <h2 class="h3 mb-2">
+          <i class="bi bi-journal-text text-primary me-2"></i>Son Blog Yazıları
+        </h2>
         <p class="text-muted">Video düzenleme ipuçları ve güncel haberler</p>
       </div>
     </div>
-    
     <div class="row g-4">
-      {% assign recent_posts = site.posts | limit: 3 %}
-      {% for post in recent_posts %}
+      <!-- Blog Card 1 -->
       <div class="col-lg-4 col-md-6">
-        <article class="card h-100">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-2">
-              <small class="text-muted">
-                <i class="bi bi-calendar3 me-1"></i>
-                {{ post.date | date: "%d.%m.%Y" }}
-              </small>
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-scissors text-primary display-5"></i>
             </div>
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.excerpt | default: post.content | strip_html | truncate: 120 }}</p>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#video-editing-tips" class="stretched-link text-decoration-none text-dark fw-semibold">
+                Video Düzenleme İpuçları
+              </a>
+            </h5>
           </div>
         </article>
       </div>
-      {% endfor %}
+      <!-- Blog Card 2 -->
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-share-fill text-primary display-5"></i>
+            </div>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#social-media-strategies" class="stretched-link text-decoration-none text-dark fw-semibold">
+                Sosyal Medya Stratejileri
+              </a>
+            </h5>
+          </div>
+        </article>
+      </div>
+      <!-- Blog Card 3 -->
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-palette-fill text-primary display-5"></i>
+            </div>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#color-grading" class="stretched-link text-decoration-none text-dark fw-semibold">
+                Renk Düzenleme (Color Grading)
+              </a>
+            </h5>
+          </div>
+        </article>
+      </div>
+      <!-- Blog Card 4 -->
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-mic-fill text-primary display-5"></i>
+            </div>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#audio-editing" class="stretched-link text-decoration-none text-dark fw-semibold">
+                Ses Düzenleme
+              </a>
+            </h5>
+          </div>
+        </article>
+      </div>
+      <!-- Blog Card 5 -->
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-graph-up-arrow text-primary display-5"></i>
+            </div>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#motion-graphics" class="stretched-link text-decoration-none text-dark fw-semibold">
+                Hareketli Grafikler
+              </a>
+            </h5>
+          </div>
+        </article>
+      </div>
+      <!-- Blog Card 6 -->
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-arrows-collapse text-primary display-5"></i>
+            </div>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#video-compression" class="stretched-link text-decoration-none text-dark fw-semibold">
+                Video Sıkıştırma
+              </a>
+            </h5>
+          </div>
+        </article>
+      </div>
+      <!-- Blog Card 7 -->
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-bookmark-star-fill text-primary display-5"></i>
+            </div>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#storytelling" class="stretched-link text-decoration-none text-dark fw-semibold">
+                Hikaye Anlatımı
+              </a>
+            </h5>
+          </div>
+        </article>
+      </div>
+      <!-- Blog Card 8 -->
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-bar-chart-line-fill text-primary display-5"></i>
+            </div>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#trend-analysis" class="stretched-link text-decoration-none text-dark fw-semibold">
+                Trend Analizi
+              </a>
+            </h5>
+          </div>
+        </article>
+      </div>
+      <!-- Blog Card 9 -->
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-search text-primary display-5"></i>
+            </div>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#seo-optimization" class="stretched-link text-decoration-none text-dark fw-semibold">
+                SEO Optimizasyonu
+              </a>
+            </h5>
+          </div>
+        </article>
+      </div>
+      <!-- Blog Card 10 -->
+      <div class="col-lg-4 col-md-6">
+        <article class="card h-100 shadow-sm border-0 blog-card-hover">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-calendar2-week-fill text-primary display-5"></i>
+            </div>
+            <h5 class="card-title mb-2">
+              <a href="{{ site.baseurl }}/blog#content-calendar" class="stretched-link text-decoration-none text-dark fw-semibold">
+                İçerik Takvimi
+              </a>
+            </h5>
+          </div>
+        </article>
+      </div>
     </div>
     
     <div class="row mt-4">

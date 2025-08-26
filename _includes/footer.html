@@ -1,0 +1,55 @@
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h5><i class="bi bi-play-circle-fill me-2"></i>{{ site.name }}</h5>
+          <p class="text-muted">{{ site.description }}</p>
+          <div class="d-flex gap-2">
+            {% if site.instagram %}
+            <a href="{{ site.instagram }}" class="text-light" aria-label="Instagram">
+              <i class="bi bi-instagram fs-5"></i>
+            </a>
+            {% endif %}
+            {% if site.linkedin %}
+            <a href="{{ site.linkedin }}" class="text-light" aria-label="LinkedIn">
+              <i class="bi bi-linkedin fs-5"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5>Hızlı Linkler</h5>
+          <ul class="list-unstyled">
+            <li><a href="{{ site.baseurl }}/">Anasayfa</a></li>
+            <li><a href="{{ site.baseurl }}/blog">Blog</a></li>
+            <li><a href="{{ site.baseurl }}/news">Haberler</a></li>
+            <li><a href="{{ site.baseurl }}/aboutus">Hakkımızda</a></li>
+            <li><a href="{{ site.baseurl }}/contact">İletişim</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5>Yardım</h5>
+          <ul class="list-unstyled">
+            <li><a href="{{ site.baseurl }}/faq">S.S.S</a></li>
+            <li><a href="{{ site.baseurl }}/privacy-policy">Gizlilik Politikası</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5>İletişim</h5>
+          <ul class="list-unstyled">
+            {% if site.email %}
+            <li><a href="mailto:{{ site.email }}"><i class="bi bi-envelope me-2"></i>{{ site.email }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; <script>document.write(new Date().getFullYear())</script> {{ site.name }}. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
