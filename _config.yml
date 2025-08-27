@@ -39,7 +39,7 @@ plugins:
   - jekyll-archives
   - jekyll-figure
   - jekyll-gist
- 
+  - jekyll-last-modified-at
 
 
 
