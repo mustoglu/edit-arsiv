@@ -21,6 +21,4 @@ group :jekyll_plugins do
     gem 'kramdown'
     gem 'rouge'
     gem 'webrick'
-    gem 'jekyll-last-modified-at'
-
 end
