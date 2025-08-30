@@ -2,7 +2,7 @@
 layout: app
 title: "Tüm Dünyada Yapay Zekaya En Çok Hangi Sorular Soruluyor?"
 description: "Yapay zekaya en çok sorulan sorular ve bu sorulara verilen yanıtlarla ilgili detaylı analiz. Görseller ve video desteğiyle güncel haber."
-permalink: "/news/yapay-zeka-en-cok-sorulan-sorular"
+permalink: "news/yapay-zeka-en-cok-sorulan-sorular"
 thumbnail: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/thumbnail/yapay-zeka-en-cok-sorulan-sorular.jpg"
 ---
 

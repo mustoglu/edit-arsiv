@@ -2,7 +2,7 @@
 layout: app
 title: "iPhone 17 Tanıtım Tarihi Açıklandı: 9 Eylül'de Awe Dropping Etkinliği"
 description: "Apple, iPhone 17 serisini 9 Eylül 2025'te tanıtacak. iPhone 17, iPhone 17 Air, iPhone 17 Pro ve iPhone 17 Pro Max modelleri bekleniyor."
-permalink: "/news/iphone-17-tanitim-tarihi-9-eylul"
+permalink: "news/iphone-17-tanitim-tarihi-9-eylul"
 thumbnail: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/thumbnail/iphone-17-tanitim-tarihi-9-eylul.jpg"
 ---
 

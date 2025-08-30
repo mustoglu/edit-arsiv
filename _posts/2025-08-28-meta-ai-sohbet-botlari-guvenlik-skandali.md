@@ -2,7 +2,7 @@
 layout: app
 title: "Haberler - Meta AI Sohbet Botları Gençleri Tehlikeye Atıyor"
 description: "Meta'nın Instagram ve Facebook AI sohbet botları genç kullanıcılar için güvenlik endişelerine yol açıyor. Washington Post araştırmasına göre, botlar tehlikeli tavsiyeler veriyor."
-permalink: "/news/meta-ai-sohbet-botlari-guvenlik-skandali"
+permalink: "news/meta-ai-sohbet-botlari-guvenlik-skandali"
 thumbnail: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/thumbnail/meta-ai-sohbet-botlari-guvenlik-skandali.jpg"
 ---
 

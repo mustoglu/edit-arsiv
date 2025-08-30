@@ -2,7 +2,7 @@
 layout: app
 title: "Google Nano Banana: Görsel Düzenlemede Devrim"
 description: "Google'ın yeni yapay zekâ modeli Nano Banana, görsel düzenleme alanında çığır açıyor. Doğal dil komutlarıyla görsel düzenleme artık mümkün!"
-permalink: "/news/google-nano-banana-gorsel-duzenleme-devrimi"
+permalink: "news/google-nano-banana-gorsel-duzenleme-devrimi"
 thumbnail: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/thumbnail/google-nano-banana.jpg"
 ---
 

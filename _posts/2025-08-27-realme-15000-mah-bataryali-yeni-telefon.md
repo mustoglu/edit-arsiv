@@ -2,7 +2,7 @@
 layout: app
 title: "Realme, 5 Gün Şarj İstemeyen 15.000 mAh Bataryalı Yeni Telefonunu Tanıttı"
 description: "Realme, 15.000 mAh dev bataryasıyla 5 gün şarj gerektirmeyen yeni telefon modelini duyurdu. Realme P1 5G, uzun pil ömrü ve yüksek performans vaat ediyor."
-permalink: "/news/realme-15000-mah-bataryali-yeni-telefon"
+permalink: "news/realme-15000-mah-bataryali-yeni-telefon"
 thumbnail: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/thumbnail/realme-15000-mah-bataryali-yeni-telefon.jpg"
 ---
 

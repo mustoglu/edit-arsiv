@@ -2,7 +2,7 @@
 layout: app
 title: "Instagram Kampüs Bağlantısı: Üniversitelilere Özel Yeni Özellik"
 description: "Instagram'ın üniversite öğrencileri için geliştirdiği yeni Kampüs Bağlantısı özelliği, öğrencilere ait doğrulanmış ağlar oluşturmayı vaat ediyor."
-permalink: "/news/instagram-kampus-baglantisi-universite-ozel-ozellik"
+permalink: "news/instagram-kampus-baglantisi-universite-ozel-ozellik"
 thumbnail: "https://editarsiv.ams3.cdn.digitaloceanspaces.com/thumbnail/instagram-kampus-baglantisi-universite-ozel-ozellik.jpg"
 ---
 
