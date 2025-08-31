@@ -14,7 +14,7 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
           Video Arşivinizin <span class="text-primary">En İyi Kesitleri</span>
         </h1>
         <p class="lead mb-4">
-          Videolarınızın ihtiyacı olan kesitleri burada. Edit Arşiv ile videolarınızı daha iyi hale getirin.
+          İçerik üreticilerinin videolarını paylaşmadan önce mutlaka ziyaret etmesi gereken bir platformuz. Videolarınızı düzenlerken performansını artıracak araçlar sunuyor, yüzlerce güncel video kesitini<b style="font-weight:800;"> ücretsiz olarak dikey ve yatay formatta </b>indirebilirsiniz.
         </p>
         <div class="d-flex gap-3 flex-column flex-sm-row">
           <a href="#featured-videos" class="btn btn-primary btn-md flex-fill text-center">
@@ -37,124 +37,54 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
   </div>
 </section>
 
-<!-- Search and Filter Section -->
+
+        
+
+
+<!-- Öne Çıkan Videolar (Reklam Gibi) -->
 <section class="py-5 bg-light">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-8 mx-auto">
-        <!-- Search Bar -->
-        <div class="mb-4">
-          <div class="input-group input-group-lg">
-            <input type="text" class="form-control" id="searchInput" placeholder="Video adı, kategori veya etiket ara..." aria-label="Video ara">
-            <button class="btn btn-primary" type="button" id="searchBtn">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </div>
-        
-        <!-- Category Filter -->
-        <div class="d-flex flex-wrap gap-2 justify-content-center" id="categoryFilter">
-          <button class="btn btn-outline-primary active" data-category="all">
-            Tümü
-          </button>
-          {% assign categories = site.videos | map: "categories" | uniq | sort %}
-          {% for category in categories %}
-            {% if category != nil %}
-            <button class="btn btn-outline-primary" data-category="{{ category }}">
-              {{ category | capitalize }}
-            </button>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Videos Grid -->
-<section id="featured-videos" class="py-5">
-  <div class="container">
     <div class="row mb-4">
-      <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <div class="d-flex flex-column flex-md-row align-items-md-end gap-2">
-            <h2 class="h3 mb-2 mb-md-0 me-md-2">Tüm Videolar</h2>
-          </div>
-          <div class="d-flex align-items-center gap-3">
-            <span class="text-muted" id="videoCount">{{ site.videos.size }} video</span>
-            <select class="form-select" id="sortSelect" style="width: auto;">
-              <option value="title">İsme Göre</option>
-              <option value="date">Tarihe Göre</option>
-              <option value="views">Görüntülemeye Göre</option>
-            </select>
-          </div>
-        </div>
+      <div class="col-12 text-center">
+        <h2 class="h3 mb-3">Öne Çıkan Videolar</h2>
+        <p class="text-muted">Edit Arşiv'den popüler video kesitleri</p>
       </div>
     </div>
-    
-    <div class="row g-4" id="videosGrid">
-      {% assign all_videos = site.videos | sort: 'title' %}
-      {% for video in all_videos %}
-      <div class="col-lg-3 col-md-6 video-item"
-           data-categories="{{ video.categories | join: ' ' }}"
-           data-title="{{ video.title | downcase }}"
-           data-tags="{{ video.tags | join: ' ' | downcase }}"
-           data-date="{{ video.date | date: '%Y%m%d' }}"
-           data-views="{{ video.video-views | remove: ' B görüntüleme' | remove: ' K görüntüleme' | remove: ' M görüntüleme' }}">
-        <div class="card video-card h-100">
+    <div class="row g-4 justify-content-center">
+      {% assign featured_videos = site.videos | sort: 'date' | reverse | slice: 0, 4 %}
+      {% for video in featured_videos %}
+      <div class="col-lg-3 col-md-6">
+        <div class="card video-card h-100 shadow-sm border-0">
           <img src="{{ site.baseurl }}/{{ video.video-thumbnail }}" 
                class="card-img-top" alt="{{ video.title }}"
                loading="lazy">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">{{ video.title }}</h5>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <div class="d-flex gap-2">
-                {% if video.categories %}
-                <span class="badge bg-primary">{{ video.categories | first }}</span>
-                {% endif %}
-                {% if video.tags %}
-                <span class="badge bg-secondary">{{ video.tags | first }}</span>
-                {% endif %}
-              </div>
+          <div class="card-body d-flex flex-column text-center">
+            <h5 class="card-title mb-2">{{ video.title }}</h5>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              {% if video.categories %}
+              <span class="badge bg-primary">{{ video.categories | first }}</span>
+              {% endif %}
+              {% if video.tags %}
+              <span class="badge bg-secondary">{{ video.tags | first }}</span>
+              {% endif %}
             </div>
-    
-            <!-- İzle ve İndir butonları yan yana, eşit büyüklükte -->
-            <div class="d-flex justify-content-center gap-2 mt-auto">
-              <button class="btn btn-primary flex-fill d-flex align-items-center justify-content-center play-video-btn" 
-                      data-video-url="{{ video.video-url }}" 
-                      data-video-title="{{ video.title }}"
-                      data-video-thumbnail="{{ video.video-thumbnail }}">
-                <i class="bi bi-play me-1"></i>İzle
-              </button>
-    
-              <div class="dropdown flex-fill">
-                <button class="btn btn-primary dropdown-toggle d-flex align-items-center justify-content-center w-100" type="button" id="downloadMenu{{ forloop.index }}" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-download me-1"></i>İndir
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="downloadMenu{{ forloop.index }}">
-                  {% if video.download-horizontal %}
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="{{ video.download-horizontal }}" download>
-                      <i class=""></i>Yatay (16:9)
-                    </a>
-                  </li>
-                  {% endif %}
-                  {% if video.download-vertical %}
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="{{ video.download-vertical }}" download>
-                      <i class=""></i>Dikey (9:16)
-                    </a>
-                  </li>
-                  {% endif %}
-                </ul>
-              </div>
-            </div>
-    
+            <a href="{{ site.baseurl }}/videos" class="btn btn-outline-primary mt-auto">
+              <i class="bi bi-play-circle me-1"></i> İzle
+            </a>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <a href="{{ site.baseurl }}/videos" class="btn btn-primary btn-lg">
+          <i class="bi bi-collection-play me-2"></i>Tüm Videoları Görüntüle & İndir
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
     
     
     
@@ -187,35 +117,45 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
   </div>
 </section>
 
-<section class="py-5">
+<section class="py-5" id="news-section">
   <div class="container">
     <div class="row mb-4">
       <div class="col-12">
-        <h2 class="h3 mb-3">Güncel Haberler</h2>
-        <p class="text-muted">Sosyal medya ve teknoloji dünyasından en son haberler</p>
-        <a href="/news" class="btn btn-outline-primary btn-sm">Tüm Haberler</a>
+        <h2 class="h3 mb-3"><i class="bi bi-newspaper me-2"></i>Güncel Haberler</h2>
+        <p class="text-muted">Sosyal medya ve teknoloji dünyasından en son haberler, analizler ve öne çıkan başlıklar</p>
       </div>
     </div>
     <div class="row g-4">
       {% assign sorted_news = site.posts | sort: "date" | reverse %}
-      {% for post in sorted_news limit:4 %}
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm news-card">
-          <a href="{{ post.url }}" class="d-block">
-            <img src="{{ post.thumbnail }}" class="news-thumb-img mx-auto mt-3 mb-2" alt="{{ post.title }}">
+      {% for post in sorted_news %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm news-card flex-row flex-lg-column">
+          <a href="{{ post.url }}" class="d-block flex-shrink-0" style="min-width: 120px;">
+            {% if post.thumbnail %}
+              <img src="{{ post.thumbnail }}" class="news-thumb-img mx-auto mt-3 mb-2" alt="{{ post.title }}">
+            {% else %}
+              <div class="news-thumb-placeholder mx-auto mt-3 mb-2"></div>
+            {% endif %}
           </a>
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title mb-2">
-              <a href="{{ post.url }}" class="stretched-link text-decoration-none text-dark">{{ post.title }}</a>
-            </h5>
-            <p class="card-text text-muted small mb-2">
-              {{ post.excerpt | strip_html | truncate: 80 }}
-            </p>
-            <div class="mt-auto d-flex flex-column align-items-start gap-2">
-              <time class="text-secondary small mb-2" datetime="{{ post.date | date_to_xmlschema }}">
-                {{ post.date | date: "%d %B %Y" }}
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title mb-2">
+                <a href="{{ post.url }}" class="stretched-link text-decoration-none text-dark">{{ post.title }}</a>
+              </h5>
+              <p class="card-text text-muted small mb-2">
+                {{ post.excerpt | strip_html | truncate: 100 }}
+              </p>
+            </div>
+            <div class="d-flex align-items-center gap-2 mt-2">
+              <time class="text-secondary small" datetime="{{ post.date | date_to_xmlschema }}">
+                <i class="bi bi-clock me-1"></i>{{ post.date | date: "%d %B %Y" }}
               </time>
-              <a href="{{ post.url }}" class="btn btn-outline-primary btn-sm">Devamını Oku</a>
+              {% if post.author %}
+                <span class="text-muted small ms-2"><i class="bi bi-person-circle me-1"></i>{{ post.author }}</span>
+              {% endif %}
+            </div>
+            <div class="mt-2">
+              <a href="{{ post.url }}" class="btn btn-link btn-sm p-0 text-primary">Devamını Oku <i class="bi bi-chevron-right"></i></a>
             </div>
           </div>
         </div>
@@ -225,6 +165,7 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
   </div>
 </section>
 <style>
+  
 .news-card {
   border-radius: 14px;
   transition: box-shadow 0.2s, transform 0.2s;
@@ -668,7 +609,7 @@ keywords: video editing, video arşiv, edit arşiv, video kesitleri
           Binlerce video kesiti arasından aradığınızı bulun ve favori anlarınızı paylaşın.
         </p>
         <div class="d-flex gap-3 justify-content-center">
-          <a href="#featured-videos" class="btn btn-light btn-lg">
+          <a href="{{ site.baseurl }}/videos" class="btn btn-light btn-lg">
             <i class="bi bi-play-circle me-2"></i>Videoları Keşfet
           </a>
           <a href="{{ site.baseurl }}/contact" class="btn btn-outline-light btn-lg">

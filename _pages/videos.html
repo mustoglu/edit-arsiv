@@ -1,0 +1,398 @@
+---
+layout: app
+title: Videolar
+description: Videolarınız için ihtiyacınız olan tüm kesitler burada...
+keywords: video editing, video arşiv, edit arşiv, video kesitleri
+permalink: "/videos"
+---
+
+
+
+
+<!-- Search and Filter Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <!-- Search Bar -->
+        <div class="mb-4">
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" id="searchInput" placeholder="Video adı, kategori veya etiket ara..." aria-label="Video ara">
+            <button class="btn btn-primary" type="button" id="searchBtn">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Category Filter -->
+        <div class="d-flex flex-wrap gap-2 justify-content-center" id="categoryFilter">
+          <button class="btn btn-outline-primary active" data-category="all">
+            Tümü
+          </button>
+          {% assign categories = site.videos | map: "categories" | uniq | sort %}
+          {% for category in categories %}
+            {% if category != nil %}
+            <button class="btn btn-outline-primary" data-category="{{ category }}">
+              {{ category | capitalize }}
+            </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Videos Grid -->
+<section id="featured-videos" class="py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="d-flex flex-column flex-md-row align-items-md-end gap-2">
+            <h2 class="h3 mb-2 mb-md-0 me-md-2">Tüm Videolar</h2>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <span class="text-muted" id="videoCount">{{ site.videos.size }} video</span>
+            <select class="form-select" id="sortSelect" style="width: auto;">
+              <option value="title">İsme Göre</option>
+              <option value="date">Tarihe Göre</option>
+              <option value="views">Görüntülemeye Göre</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row g-4" id="videosGrid">
+      {% assign all_videos = site.videos | sort: 'title' %}
+      {% for video in all_videos %}
+      <div class="col-lg-3 col-md-6 video-item"
+           data-categories="{{ video.categories | join: ' ' }}"
+           data-title="{{ video.title | downcase }}"
+           data-tags="{{ video.tags | join: ' ' | downcase }}"
+           data-date="{{ video.date | date: '%Y%m%d' }}"
+           data-views="{{ video.video-views | remove: ' B görüntüleme' | remove: ' K görüntüleme' | remove: ' M görüntüleme' }}">
+        <div class="card video-card h-100">
+          <img src="{{ site.baseurl }}/{{ video.video-thumbnail }}" 
+               class="card-img-top" alt="{{ video.title }}"
+               loading="lazy">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ video.title }}</h5>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="d-flex gap-2">
+                {% if video.categories %}
+                <span class="badge bg-primary">{{ video.categories | first }}</span>
+                {% endif %}
+                {% if video.tags %}
+                <span class="badge bg-secondary">{{ video.tags | first }}</span>
+                {% endif %}
+              </div>
+            </div>
+    
+            <!-- İzle ve İndir butonları yan yana, eşit büyüklükte -->
+            <div class="d-flex justify-content-center gap-2 mt-auto">
+              <button class="btn btn-primary flex-fill d-flex align-items-center justify-content-center play-video-btn" 
+                      data-video-url="{{ video.video-url }}" 
+                      data-video-title="{{ video.title }}"
+                      data-video-thumbnail="{{ video.video-thumbnail }}">
+                <i class="bi bi-play me-1"></i>İzle
+              </button>
+    
+              <div class="dropdown flex-fill">
+                <button class="btn btn-primary dropdown-toggle d-flex align-items-center justify-content-center w-100" type="button" id="downloadMenu{{ forloop.index }}" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-download me-1"></i>İndir
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="downloadMenu{{ forloop.index }}">
+                  {% if video.download-horizontal %}
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="{{ video.download-horizontal }}" download>
+                      <i class=""></i>Yatay (16:9)
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% if video.download-vertical %}
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="{{ video.download-vertical }}" download>
+                      <i class=""></i>Dikey (9:16)
+                    </a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    
+    
+    
+    <!-- No Results Message -->
+    <div class="row" id="noResults" style="display: none;">
+      <div class="col-12 text-center">
+        <div class="py-5">
+          <i class="bi bi-search display-1 text-muted mb-3"></i>
+          <h3>Sonuç Bulunamadı</h3>
+          <p class="text-muted">Arama kriterlerinize uygun video bulunamadı.</p>
+          <button class="btn btn-primary" onclick="clearFilters()">
+            <i class="bi bi-arrow-clockwise me-2"></i>Filtreleri Temizle
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    {% if all_videos.size == 0 %}
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="py-5">
+          <i class="bi bi-collection-play display-1 text-muted mb-3"></i>
+          <h3>Henüz video yok</h3>
+          <p class="text-muted">Video arşivimiz yakında güncellenecek.</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+  
+
+
+
+
+
+
+
+
+
+<!-- Video Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="videoModalLabel">Video İzle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="video-player-container">
+          <video controls id="modalVideo" style="width: 100%; height: auto;">
+            Tarayıcınız video oynatmayı desteklemiyor.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Video Filter and Search Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const filterButtons = document.querySelectorAll('#categoryFilter button');
+  const videoItems = document.querySelectorAll('.video-item');
+  const sortSelect = document.getElementById('sortSelect');
+  const videoCount = document.getElementById('videoCount');
+  const noResults = document.getElementById('noResults');
+  const videosGrid = document.getElementById('videosGrid');
+  
+  let currentCategory = 'all';
+  let currentSearch = '';
+  
+  // Search functionality
+  function performSearch() {
+    currentSearch = searchInput.value.toLowerCase();
+    filterVideos();
+  }
+  
+  // Filter functionality
+  function filterVideos() {
+    let visibleCount = 0;
+    
+    videoItems.forEach(item => {
+      const itemCategories = item.getAttribute('data-categories');
+      const itemTitle = item.getAttribute('data-title');
+      const itemTags = item.getAttribute('data-tags');
+      
+      const matchesCategory = currentCategory === 'all' || itemCategories.includes(currentCategory);
+      const matchesSearch = currentSearch === '' || 
+                           itemTitle.includes(currentSearch) || 
+                           itemTags.includes(currentSearch);
+      
+      if (matchesCategory && matchesSearch) {
+        item.style.display = 'block';
+        item.style.animation = 'fadeIn 0.5s ease-in';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+    
+    // Update video count
+    videoCount.textContent = `${visibleCount} video`;
+    
+    // Show/hide no results message
+    if (visibleCount === 0) {
+      noResults.style.display = 'block';
+      videosGrid.style.display = 'none';
+    } else {
+      noResults.style.display = 'none';
+      videosGrid.style.display = 'flex';
+    }
+  }
+  
+  // Sort functionality
+  function sortVideos() {
+    const sortBy = sortSelect.value;
+    const videoArray = Array.from(videoItems);
+    
+    videoArray.sort((a, b) => {
+      if (sortBy === 'title') {
+        return a.getAttribute('data-title').localeCompare(b.getAttribute('data-title'));
+      } else if (sortBy === 'date') {
+        return b.getAttribute('data-date') - a.getAttribute('data-date');
+      } else if (sortBy === 'views') {
+        const aViews = parseInt(a.getAttribute('data-views')) || 0;
+        const bViews = parseInt(b.getAttribute('data-views')) || 0;
+        return bViews - aViews;
+      }
+      return 0;
+    });
+    
+    // Reorder DOM elements
+    const container = videosGrid;
+    videoArray.forEach(item => {
+      container.appendChild(item);
+    });
+  }
+  
+  // Event listeners
+  searchInput.addEventListener('input', performSearch);
+  searchBtn.addEventListener('click', performSearch);
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      currentCategory = this.getAttribute('data-category');
+      
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      filterVideos();
+    });
+  });
+  
+  // Category filter buttons from cards
+  document.querySelectorAll('.category-filter-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const category = this.getAttribute('data-category');
+      currentCategory = category;
+      
+      // Update active button in filter section
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      const targetButton = document.querySelector(`[data-category="${category}"]`);
+      if (targetButton) {
+        targetButton.classList.add('active');
+      }
+      
+      // Scroll to videos section
+      document.getElementById('featured-videos').scrollIntoView({ behavior: 'smooth' });
+      
+      filterVideos();
+    });
+  });
+  
+  sortSelect.addEventListener('change', sortVideos);
+  
+  // Clear filters function
+  window.clearFilters = function() {
+    searchInput.value = '';
+    currentSearch = '';
+    currentCategory = 'all';
+    
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    document.querySelector('[data-category="all"]').classList.add('active');
+    
+    sortSelect.value = 'title';
+    
+    filterVideos();
+    sortVideos();
+  };
+  
+  // Video Modal Functionality
+  const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+  const modalVideo = document.getElementById('modalVideo');
+  const modalTitle = document.getElementById('videoModalLabel');
+  
+  document.querySelectorAll('.play-video-btn').forEach(button => {
+  button.addEventListener('click', function() {
+    const videoUrl = this.getAttribute('data-video-url');
+    const videoTitle = this.getAttribute('data-video-title');
+    const videoThumbnail = this.getAttribute('data-video-thumbnail');
+    
+    if (videoUrl) {
+      modalVideo.src = videoUrl;
+      modalVideo.poster = videoThumbnail;
+      modalTitle.textContent = videoTitle;
+      videoModal.show();
+
+      // 🔹 Modal açılınca video oynat
+      modalVideo.play().catch(err => {
+        console.log("Otomatik oynatma engellendi, kullanıcı etkileşimi gerekebilir:", err);
+      });
+    } else {
+      alert('Video URL bulunamadı!');
+    }
+  });
+});
+  
+  // Stop video when modal is closed
+  document.getElementById('videoModal').addEventListener('hidden.bs.modal', function () {
+    modalVideo.pause();
+    modalVideo.src = '';
+  });
+});
+
+// Add fadeIn animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  #videosGrid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .modal-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid var(--soft-border);
+    border-radius: 16px 16px 0 0;
+  }
+  
+  .modal-body {
+    padding: 0;
+  }
+  
+  .video-player-container {
+    border-radius: 0 0 16px 16px;
+  }
+`;
+document.head.appendChild(style);
+</script>
